@@ -118,15 +118,15 @@ def write_gold_kaggle_file(tsvfile, outfname):
     i = 0
     with open(tsvfile, 'r') as tf:
             for line in tf:
-                    (ifname,label) = line.strip().split("\t")
-                    # iid = file_to_id(ifname)
-                    i += 1
-                    f.write(str(i))
-                    f.write(",")
-                    #f.write(ifname)
-                    #f.write(",")
-                    f.write(label)
-                    f.write("\n")
+                (ifname,label) = line.strip().split("\t")
+                # iid = file_to_id(ifname)
+                i += 1
+                f.write(str(i))
+                f.write(",")
+                #f.write(ifname)
+                #f.write(",")
+                f.write(label)
+                f.write("\n")
     f.close()
 
 def write_basic_kaggle_file(tsvfile, outfname):
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     ic("Reading unlabeled data")
     unlabeled = read_unlabeled(tarfname, speech)
     ic("Writing pred file")
-    write_pred_kaggle_file(unlabeled, cls, "data/speech-pred.csv", speech)
+    write_pred_kaggle_file(unlabeled, cls, "speech-pred.csv", speech)
 
     # You can't run this since you do not have the true labels
     # ic "Writing gold file"

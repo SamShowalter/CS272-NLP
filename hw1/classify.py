@@ -1,5 +1,5 @@
 #!/bin/python
-
+from icecream import ic
 def train_classifier(X, y):
 	"""Train a classifier using the given training data.
 
@@ -15,4 +15,4 @@ def evaluate(X, yt, cls):
 	from sklearn import metrics
 	yp = cls.predict(X)
 	acc = metrics.accuracy_score(yt, yp)
-	print("  Accuracy", acc)
+	ic("  Accuracy", acc)
