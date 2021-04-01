@@ -20,13 +20,13 @@ def read_files(tarfname):
 	tar = tarfile.open(tarfname, "r:gz")
 	class Data: pass
 	speech = Data()
-	print("-- train data")
+	ic("-- train data")
 	speech.train_data, speech.train_fnames, speech.train_labels = read_tsv(tar, "train.tsv")
-	print(len(speech.train_data))
-	print("-- dev data")
+	ic(len(speech.train_data))
+	ic("-- dev data")
 	speech.dev_data, speech.dev_fnames, speech.dev_labels = read_tsv(tar, "dev.tsv")
-	print(len(speech.dev_data))
-	print("-- transforming data and labels")
+	ic(len(speech.dev_data))
+	ic("-- transforming data and labels")
 	from sklearn.feature_extraction.text import CountVectorizer
 	speech.count_vect = CountVectorizer()
 	speech.trainX = speech.count_vect.fit_transform(speech.train_data)
@@ -60,13 +60,13 @@ def read_unlabeled(tarfname, speech):
 			unlabeled.fnames.append(m.name)
 			unlabeled.data.append(read_instance(tar, m.name))
 	unlabeled.X = speech.count_vect.transform(unlabeled.data)
-	print(unlabeled.X.shape)
+	ic(unlabeled.X.shape)
 	tar.close()
 	return unlabeled
 
 def read_tsv(tar, fname):
 	member = tar.getmember(fname)
-	print(member.name)
+	ic(member.name)
 	tf = tar.extractfile(member)
 	data = []
 	labels = []
@@ -74,7 +74,7 @@ def read_tsv(tar, fname):
 	for line in tf:
 		line = line.decode("utf-8")
 		(ifname,label) = line.strip().split("\t")
-		#print ifname, ":", label
+		#ic ifname, ":", label
 		content = read_instance(tar, ifname)
 		labels.append(label)
 		fnames.append(ifname)
@@ -155,23 +155,25 @@ def read_instance(tar, ifname):
 	content = ifile.read().strip()
 	return content
 
+
+from icecream import ic
 if __name__ == "__main__":
-	print("Reading data")
+	ic("Reading data")
 	tarfname = "data/speech.tar.gz"
 	speech = read_files(tarfname)
-	print("Training classifier")
+	ic("Training classifier")
 	import classify
 	cls = classify.train_classifier(speech.trainX, speech.trainy)
-	print("Evaluating")
+	ic("Evaluating")
 	classify.evaluate(speech.trainX, speech.trainy, cls)
 	classify.evaluate(speech.devX, speech.devy, cls)
 
-	print("Reading unlabeled data")
+	ic("Reading unlabeled data")
 	unlabeled = read_unlabeled(tarfname, speech)
-	print("Writing pred file")
+	ic("Writing pred file")
 	write_pred_kaggle_file(unlabeled, cls, "data/speech-pred.csv", speech)
 
 	# You can't run this since you do not have the true labels
-	# print "Writing gold file"
+	# ic "Writing gold file"
 	# write_gold_kaggle_file("data/speech-unlabeled.tsv", "data/speech-gold.csv")
-	# write_basic_kaggle_file("data/speech-unlabeled.tsv", "data/speech-basic.csv")
+        # w:rite_basic_kaggle_file("data/speech-unlabeled.tsv", "data/speech-basic.csv")
