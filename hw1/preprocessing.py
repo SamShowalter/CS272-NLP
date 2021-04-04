@@ -46,7 +46,7 @@ class Data():
         self.le = None
         self.filename = filename
         ic("-- train data")
-        self.train_data, self.train_fnames, self.train_labels = read_tsv(tar, "data/train.tsv")
+        self.train_data, self.train_fnames, self.train_labels = read_tsv(tar, "train.tsv")
         ic(len(self.train_data)) 
         ic("-- val data") 
         self.val_data, self.val_fnames, self.val_labels = read_tsv(tar, "dev.tsv")

@@ -21,6 +21,23 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 #################################################################################
 
 
+def dimensionality_exploration(data_name, preprocessors):
+    """Explore the dimensionality of the training data
+
+    :data_name: TODO
+    :preprocessors: TODO
+    :returns: TODO
+
+    """
+    distinct_words = []
+    data = Data(data_name)
+    for prep in preprocessors:
+        data.preprocess(prep)
+        distinct_words.append(data.train_x.shape[1])
+
+    return distinct_words
+
+
 def feature_ablation(data_name, featurization_list):
     """Try different feature generation techniques, including
     - CountVectorization
