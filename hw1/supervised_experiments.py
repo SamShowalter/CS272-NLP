@@ -33,6 +33,7 @@ def dimensionality_exploration(data_name, preprocessors):
     data = Data(data_name)
     for prep in preprocessors:
         data.preprocess(prep)
+        data.featurization = None
         distinct_words.append(data.train_x.shape[1])
 
     return distinct_words

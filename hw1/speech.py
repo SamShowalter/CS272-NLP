@@ -22,7 +22,7 @@ from icecream import ic
 #     data = Data(tarfname)
 #     return data
 
-def read_unlabeled(tarfname, speech):
+def read_unlabeled(tarfname, speech, preprocess = False):
     """Reads the unlabeled data.
 
     The returned object contains three fields that represent the unlabeled data.
@@ -41,8 +41,9 @@ def read_unlabeled(tarfname, speech):
             if "unlabeled" in m.name and ".txt" in m.name:
                     unlabeled.fnames.append(m.name)
                     unlabeled.data.append(read_instance(tar, m.name))
-    unlabeled.X = speech.norm.transform(speech.count_vect.transform(unlabeled.data))
-    ic(unlabeled.X.shape)
+    if preprocess:
+        unlabeled.X = speech.svd.transform(speech.featurization.transform(unlabeled.data))
+        ic(unlabeled.X.shape)
     tar.close()
     return unlabeled
 
