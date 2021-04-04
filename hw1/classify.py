@@ -1,4 +1,4 @@
-#!/bin/python
+# /bin/python
 from icecream import ic
 def train_classifier(X, y):
 	"""Train a classifier using the given training data.
@@ -7,6 +7,7 @@ def train_classifier(X, y):
 	"""
 	from sklearn.linear_model import LogisticRegression
 	cls = LogisticRegression()
+	# cls = LogisticRegression(penalty = "elasticnet", l1_ratio = 0.4, solver = "saga")
 	cls.fit(X, y)
 	return cls
 

@@ -1,44 +1,26 @@
-    #!/bin/python
+#!/bin/python
+import sys
+from icecream import ic
+# from preprocessing import Data
 
-def read_files(tarfname):
-    """Read the training and development data from the speech tar file.
-    The returned object contains various fields that store the data, such as:
+# def read_files(tarfname):
+#     """Read the training and development data from the speech tar file.
+#     The returned object contains various fields that store the data, such as:
 
-    train_data,dev_data: array of documents (array of words)
-    train_fnames,dev_fnames: list of filenames of the doccuments (same length as data)
-    train_labels,dev_labels: the true string label for each document (same length as data)
+#     train_data,dev_data: array of documents (array of words)
+#     train_fnames,dev_fnames: list of filenames of the doccuments (same length as data)
+#     train_labels,dev_labels: the true string label for each document (same length as data)
 
-    The data is also preprocessed for use with scikit-learn, as:
+#     The data is also preprocessed for use with scikit-learn, as:
 
-    count_vec: CountVectorizer used to process the data (for reapplication on new data)
-    trainX,devX: array of vectors representing Bags of Words, i.e. documents processed through the vectorizer
-    le: LabelEncoder, i.e. a mapper from string labels to ints (stored for reapplication)
-    target_labels: List of labels (same order as used in le)
-    trainy,devy: array of int labels, one for each document
-    """
-    import tarfile
-    tar = tarfile.open(tarfname, "r:gz")
-    class Data: pass
-    speech = Data()
-    ic("-- train data")
-    speech.train_data, speech.train_fnames, speech.train_labels = read_tsv(tar, "train.tsv")
-    ic(len(speech.train_data))
-    ic("-- dev data")
-    speech.dev_data, speech.dev_fnames, speech.dev_labels = read_tsv(tar, "dev.tsv")
-    ic(len(speech.dev_data))
-    ic("-- transforming data and labels")
-    from sklearn.feature_extraction.text import CountVectorizer
-    speech.count_vect = CountVectorizer()
-    speech.trainX = speech.count_vect.fit_transform(speech.train_data)
-    speech.devX = speech.count_vect.transform(speech.dev_data)
-    from sklearn import preprocessing
-    speech.le = preprocessing.LabelEncoder()
-    speech.le.fit(speech.train_labels)
-    speech.target_labels = speech.le.classes_
-    speech.trainy = speech.le.transform(speech.train_labels)
-    speech.devy = speech.le.transform(speech.dev_labels)
-    tar.close()
-    return speech
+#     count_vec: CountVectorizer used to process the data (for reapplication on new data)
+#     train_x,devX: array of vectors representing Bags of Words, i.e. documents processed through the vectorizer
+#     le: LabelEncoder, i.e. a mapper from string labels to ints (stored for reapplication)
+#     target_labels: List of labels (same order as used in le)
+#     train_y,devy: array of int labels, one for each document
+#     """
+#     data = Data(tarfname)
+#     return data
 
 def read_unlabeled(tarfname, speech):
     """Reads the unlabeled data.
@@ -59,7 +41,7 @@ def read_unlabeled(tarfname, speech):
             if "unlabeled" in m.name and ".txt" in m.name:
                     unlabeled.fnames.append(m.name)
                     unlabeled.data.append(read_instance(tar, m.name))
-    unlabeled.X = speech.count_vect.transform(unlabeled.data)
+    unlabeled.X = speech.norm.transform(speech.count_vect.transform(unlabeled.data))
     ic(unlabeled.X.shape)
     tar.close()
     return unlabeled
@@ -156,24 +138,5 @@ def read_instance(tar, ifname):
     return content
 
 
-from icecream import ic
-if __name__ == "__main__":
-    ic("Reading data")
-    tarfname = "speech.tar.gz"
-    speech = read_files(tarfname)
-    ic("Training classifier")
-    import classify
-    cls = classify.train_classifier(speech.trainX, speech.trainy)
-    ic("Evaluating")
-    classify.evaluate(speech.trainX, speech.trainy, cls)
-    classify.evaluate(speech.devX, speech.devy, cls)
+    
 
-    ic("Reading unlabeled data")
-    unlabeled = read_unlabeled(tarfname, speech)
-    ic("Writing pred file")
-    write_pred_kaggle_file(unlabeled, cls, "speech-pred.csv", speech)
-
-    # You can't run this since you do not have the true labels
-    # ic "Writing gold file"
-    # write_gold_kaggle_file("data/speech-unlabeled.tsv", "data/speech-gold.csv")
-    # w:rite_basic_kaggle_file("data/speech-unlabeled.tsv", "data/speech-basic.csv")
