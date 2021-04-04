@@ -17,13 +17,51 @@ from icecream import ic
 import tarfile
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk import word_tokenize 
-import string
+import numpy as np
 #################################################################################
 #   Function-Class Declaration
 #################################################################################
 
+class W2V_Vectorizer(object):
 
-class LemmaTokenizer(object):
+    """Word 2 Vec Feature creation"""
+
+    def __init__(self, model, dim = 100):
+        """Use Word2Vec Model trained on unlabeled data
+        to increase performance of model.
+
+        :model: TODO
+
+        """
+        self._dim = dim
+        self._model = model
+
+    def _embed(self, token):
+        """embed tokens with model
+
+        :token: TODO
+        :returns: TODO
+
+        """
+        if token in self._model:
+            return self._model[token]
+        return np.zeros(self._dim)
+
+    def __call__(self, token_vec):
+        """
+        Return mean embedding (sum would be uneven because 
+        of variable length input).
+
+        This may hide some of the more important stuff but its
+        one idea
+        """
+        tok_vecs = [self._embed(token) for token in token_vec]
+        return np.array(tok_vecs).mean()
+
+        
+
+
+class LemmaTokenizer():
     def __init__(self,tokenizer):
         self.wnl = WordNetLemmatizer()
         self.tokenizer = tokenizer
