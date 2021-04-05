@@ -22,7 +22,7 @@ from icecream import ic
 #     data = Data(tarfname)
 #     return data
 
-def read_unlabeled(tarfname, speech, preprocess = False):
+def read_unlabeled(tarfname, speech, preprocess = False, w2v = False):
     """Reads the unlabeled data.
 
     The returned object contains three fields that represent the unlabeled data.

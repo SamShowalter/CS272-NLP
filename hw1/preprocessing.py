@@ -38,7 +38,7 @@ class W2V_Vectorizer(object):
         self._dim = dim
         self._model = model
 
-    def _embed(self, token):
+    def  _embed(self, token):
         """embed tokens with model
 
         :token: TODO
@@ -58,6 +58,8 @@ class W2V_Vectorizer(object):
         one idea
         """
         tok_vecs = [self._embed(token) for token in token_vec]
+        # print(np.array(tok_vecs).mean(axis =0).shape)
+        
         return np.array(tok_vecs).mean(axis = 0)
 
         
@@ -65,18 +67,23 @@ class W2V_Vectorizer(object):
 
 class SamsTokenizer():
     # Stopwords handled by word2vec system
-    def __init__(self, lower = True, punct = False):
+    def __init__(self, lower = True, punct = False, tokenizer = "cv", lemma = True):
         self.lower = lower
         self.punct = punct
+        self.lemma = lemma
         self.wnl = WordNetLemmatizer()
-        self.tokenizer = word_tokenize
-    def __call__(self, articles, punct = False):
-        articles = self.tokenizer(articles.decode('utf-8'))
+        self.tokenizer = word_tokenize if tokenizer == 'nltk' else CountVectorizer().build_tokenizer()
+
+    def __call__(self, articles):
+        articles = articles.decode('utf-8') if type(articles) == bytes else articles
+        articles = self.tokenizer(articles)
         tokens = [self.wnl.lemmatize(t) for t in articles]
         if self.lower:
-            tokens = [self.wnl.lemmatize(t).lower() for t in articles]
+            tokens = [t.lower() for t in articles]
         if not self.punct:
             tokens = [t for t in tokens if t not in string.punctuation]
+        if self.lemma:
+            tokens = [self.wnl.lemmatize(t) for t in articles]
 
         return tokens
 
