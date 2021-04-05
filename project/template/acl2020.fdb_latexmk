@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex acl2020"] 1617210498 "acl2020.aux" "acl2020.bbl" "acl2020" 1617210574
+["bibtex acl2020"] 1617210498 "acl2020.aux" "acl2020.bbl" "acl2020" 1617210645
   "./acl_natbib.bst" 1617235398 47585 c671f071a8f3957857acb307a7173505 ""
-  "acl2020.aux" 1617210574 2994 9d6ec5cca4be44d102dd2b8b2e832a7d "pdflatex"
+  "acl2020.aux" 1617210644 2994 9d6ec5cca4be44d102dd2b8b2e832a7d "pdflatex"
   "acl2020.bib" 1617235398 1974 4d7084b2f3a55753e2f48da8052bb437 ""
   "anthology.bib" 1617235398 35724382 7579d629f1885d6a7c7a5a6c9c2f402b ""
   (generated)
   "acl2020.bbl"
   "acl2020.blg"
-["pdflatex"] 1617210573 "acl2020.tex" "acl2020.pdf" "acl2020" 1617210574
+["pdflatex"] 1617210644 "acl2020.tex" "acl2020.pdf" "acl2020" 1617210645
   "/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -90,11 +90,11 @@
   "/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1557342064 3277517 23507ed665b4dd9046f0f2a94bbef2be ""
   "/usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1557342086 4259635 562fc36ec496993777a6c428d8bfb811 ""
   "/usr/local/texlive/2019/texmf.cnf" 1557341546 577 d150fef99ac436ad1156e86b0892f6ef ""
-  "acl2020.aux" 1617210574 2994 9d6ec5cca4be44d102dd2b8b2e832a7d "pdflatex"
+  "acl2020.aux" 1617210644 2994 9d6ec5cca4be44d102dd2b8b2e832a7d "pdflatex"
   "acl2020.bbl" 1617210506 3211 85362f9fc70184babc51a2f9c063059f "bibtex acl2020"
-  "acl2020.out" 1617210574 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "acl2020.out" 1617210644 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   "acl2020.sty" 1617210489 22040 8c30b4334d342bee3a3cd0cf0cdcb467 ""
-  "acl2020.tex" 1617210572 28062 3df6fbbbf972bec83514f8915cc858ba ""
+  "acl2020.tex" 1617210642 28062 3df6fbbbf972bec83514f8915cc858ba ""
   (generated)
   "acl2020.aux"
   "acl2020.pdf"
