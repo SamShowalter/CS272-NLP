@@ -28,7 +28,7 @@ class W2V_Vectorizer(object):
 
     """Word 2 Vec Feature creation"""
 
-    def __init__(self, model, dim = 100):
+    def __init__(self, model, dim = 300):
         """Use Word2Vec Model trained on unlabeled data
         to increase performance of model.
 
