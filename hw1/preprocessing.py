@@ -12,11 +12,13 @@
 #################################################################################
 
 from sklearn.preprocessing import LabelEncoder , Normalizer 
+from sklearn.feature_extraction.text import CountVectorizer
 from speech import read_tsv
 from icecream import ic
 import tarfile
 from nltk.stem.wordnet import WordNetLemmatizer
-from nltk import word_tokenize 
+from nltk import word_tokenize
+import string
 import numpy as np
 #################################################################################
 #   Function-Class Declaration
@@ -56,18 +58,27 @@ class W2V_Vectorizer(object):
         one idea
         """
         tok_vecs = [self._embed(token) for token in token_vec]
-        return np.array(tok_vecs).mean()
+        return np.array(tok_vecs).mean(axis = 0)
 
         
 
 
-class LemmaTokenizer():
-    def __init__(self,tokenizer):
+class SamsTokenizer():
+    # Stopwords handled by word2vec system
+    def __init__(self, lower = True, punct = False):
+        self.lower = lower
+        self.punct = punct
         self.wnl = WordNetLemmatizer()
-        self.tokenizer = tokenizer
+        self.tokenizer = word_tokenize
     def __call__(self, articles, punct = False):
-        articles = self.tokenizer(articles)
-        return [self.wnl.lemmatize(t).lower() for t in articles]
+        articles = self.tokenizer(articles.decode('utf-8'))
+        tokens = [self.wnl.lemmatize(t) for t in articles]
+        if self.lower:
+            tokens = [self.wnl.lemmatize(t).lower() for t in articles]
+        if not self.punct:
+            tokens = [t for t in tokens if t not in string.punctuation]
+
+        return tokens
 
 class Data():
 
@@ -85,6 +96,7 @@ class Data():
         tar = tarfile.open("data/" + filename, "r:gz")
         self.count_vect = None
         self.le = None
+        self.svd = None
         self.filename = filename
         ic("-- train data")
         self.train_data, self.train_fnames, self.train_labels = read_tsv(tar, "train.tsv")
