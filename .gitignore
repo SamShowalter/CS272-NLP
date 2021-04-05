@@ -90,3 +90,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Files with lots of information
+data/
+models/
