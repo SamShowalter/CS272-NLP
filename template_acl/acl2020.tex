@@ -15,6 +15,7 @@
 \usepackage[hyperref]{acl2020}
 \usepackage{times}
 \usepackage{latexsym}
+\usepackage{booktabs}
 \renewcommand{\UrlFont}{\ttfamily\small}
 
 % This is not strictly necessary, and may be commented out,
@@ -57,47 +58,74 @@ Authors are asked to conform to all the directions reported in this document.
 
 
 
-
-% \begin{table}
-% \centering
-% \begin{tabular}{lc}
-% \hline
-% \textbf{Command} & \textbf{Output}\\
-% \hline
-% \verb|{\"a}| & {\"a} \\
-% \verb|{\^e}| & {\^e} \\
-% \verb|{\`i}| & {\`i} \\ 
-% \verb|{\.I}| & {\.I} \\ 
-% \verb|{\o}| & {\o} \\
-% \verb|{\'u}| & {\'u}  \\ 
-% \verb|{\aa}| & {\aa}  \\\hline
-% \end{tabular}
-% \begin{tabular}{lc}
-% \hline
-% \textbf{Command} & \textbf{Output}\\
-% \hline
-% \verb|{\c c}| & {\c c} \\ 
-% \verb|{\u g}| & {\u g} \\ 
-% \verb|{\l}| & {\l} \\ 
-% \verb|{\~n}| & {\~n} \\ 
-% \verb|{\H o}| & {\H o} \\ 
-% \verb|{\v r}| & {\v r} \\ 
-% \verb|{\ss}| & {\ss} \\
-% \hline
-% \end{tabular}
-% \caption{Example commands for accented characters, to be used in, \emph{e.g.}, \BibTeX\ names.}\label{tab:accents}
-% \end{table}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Feature engineering grid search table
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+    \centering
+    \caption{Feature Engineering Grid Search}
+    \begin{tabular}{
+    	l
+        l
+        l
+        l
+        l
+        l
+        }
+        \toprule
+        \multicolumn{2}{c}{} &
+        \multicolumn{4}{c}{Language Feature Filters}\\
+        \cmidrule(lr){3-6} 
+        {Token}& {Token} &{None} &{Case+}&{Lemma}& {Stop}\\
+        {Engine} & {Sep.} && {Punct.}&&{Word}\\
+        \midrule
+      CVect & nltk & 0.399& \textbf{0.435}& \textbf{0.435}& 0.401\\
+        CVect & regex& 0.396& 0.413&0.413& 0.399\\
+        Tf-Idf & nltk & 0.382&  0.382 &0.382 & 0.386\\
+        Tf-Idf & regex & 0.360& 0.374 & 0.374& 0.381\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{quote}\small
-\verb|\bibliographystyle{acl_natbib}|\\
-\verb|\bibliography{anthology,acl2020}|
-\end{quote}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dimensionality plot
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\noindent
-{\small\verb|\usepackage[nohyperref]{acl2020}|}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Model Grid Search Plot
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+    \centering
+    \caption{Feature Engineering Grid Search}
+    \begin{tabular}{
+    	l
+        l
+        l
+        l
+        l
+        l
+        }
+        \toprule
+        \multicolumn{1}{c}{} &
+        \multicolumn{5}{c}{Logistic Reg. Solver}\\
+        \cmidrule(lr){2-6} 
+        {Reg.}& {lbfgs} &{lib-} &{newton}&{saga}& {sag}\\
+        {Penalty} & {} && {linear}&&{}\\
+        \midrule
+        None & 0.399 & - & 0.401 & \textbf{0.454} & 0.447\\
+        L1 & - & 0.423 &  -&0.428& -\\
+        L2 & 0.447& 0.432& 0.450& 0.447& \textbf{0.450}\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 
 
