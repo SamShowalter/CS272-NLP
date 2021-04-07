@@ -44,6 +44,7 @@
 
 \author{Sam Showalter \\
   University of California, Irvine \ (showalte) \\  
+  Kaggle: Sam Showalter \\
 \texttt{showalte@uci.edu}} 
 
 \date{}
@@ -53,9 +54,9 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  Text classification in model-restrictive settings is heavily reliant on predictive features to ensure adequate performance. In this case, our task is to predict a presidential candidate by looking at a small text snippet of varying length taken from a transcription of one their speeches. This analysis explores several methods of text tokenization, feature engineering, dimensionality reduction, and model loss tuning. Starting with simple dataset exploration, our experiments extended to attempts at encoding semantic meaning into the naive bag-of-words representations with Truncated Singular Value Decomposition and Word2Vec embeddings.
-  Moreover, this experimentation was also applied to the model itself. Since the input features from the presidential speeches are very high-dimensional, different regularization methods and gradient solvers were applied to improve learning and generalization. After each ablation, performance on a held-out validation set improved, and the best configuration from the experiment was passed to the next and built upon progressively. Overall, we achieved a boost of roughly 2.5\% over the baseline.
-  In addition, we further improved our classification performance by pretraining an embedding model on unlabeled data with Word2Vec, correlating words based on their meaning. Though alone these word embeddings did not exceed the supervised performance, when integrated the original set of supervised features performance improved slightly. However, the embeddings did exhibit a few failure modes that could be tracked back to the structure of the unlabeled data.  
+  Text classification in model-restrictive settings is heavily reliant on predictive features to ensure adequate performance. In turn, this analysis explores several methods of text tokenization, feature engineering, and dimensionality reduction. Starting with simple dataset exploration, our experiments extend to attempts at encoding semantic meaning into the naive bag-of-words representations with Truncated Singular Value Decomposition and Word2Vec embeddings.
+  Moreover, this experimentation was also applied to the model itself. Since the input features from the speeches are high-dimensional, different regularization methods were applied to improve learning and generalization. After each ablation, performance on a held-out validation set improved, and the best configuration from the experiment was passed to the next and built upon progressively. 
+  In addition, we further improved our classification performance by pretraining an embedding model on unlabeled data with Word2Vec, correlating words based on their meaning. Though alone these word embeddings did not exceed the supervised performance, when integrated the original set of supervised features performance improved slightly. However, the embeddings did exhibit a few failure modes where context hurt; these issues were be tracked back to the structure of the unlabeled data.  
 \end{abstract}
 
 
@@ -64,15 +65,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-Text classification can be accomplished with a variety of implementations. Among the simplest and most popular is the bag-of-words framework \cite{zhang2010understanding}. In this setting, a vocabulary is formed by tokenizing the input text and then creating a unique index for every distinct token. Then, one-hot vectors of each token are generated and a document's feature vector is generated as the sum or the logical-OR of the tokens within it.
+Text classification can be accomplished with a variety of implementations. Among the simplest and most popular is the bag-of-words framework \cite{zhang2010understanding}. In this setting, a vocabulary is formed by tokenizing the input text and then creating a unique index for every distinct token. Then, one-hot vectors of each token are generated and a document's feature vector is represented as the sum or the logical-OR of its token vectors.
 
-In general, feature vectors generated in this way tend to be high-dimensional. To combat this curse of dimensionality in modeling, the vocabulary can be shrunk by several methods, including resolving the case of all characters, removing non-alphanumeric character, expanding contractions, lemmatization, and removing words that tend to carry little semantic meaning (\textit{stopwords}). Even with these reductions, which at times may be substantial, the resulting feature vectors tend to still be quite large. Further explicit reductions can come from recognizing that tokens that occur extremely rarely across a corpus likely carry little predictive value and may be ignored. This practice should be conducted with caution; while tokens that occur very rarely (e.g. once) may not be predictive, tokens that occur slightly more often (e.g. in 1\% of documents) may be very predictive. The appropriate frequency threshold for ignoring rare tokens varies by application and may need to be discovered empirically. However, once a suitable feature engineering protocol has been defined, the only other tuning possible is incorporating unlabeled data and ablations with training the model itself.
+In general, feature vectors for NLP tend to be high-dimensional. To combat this curse of dimensionality in modeling, the vocabulary can be shrunk by several methods, including removing non-alphanumeric characters, expanding contractions, lemmatization, and removing stopwords. Even with these reductions, the resulting feature vectors tend to remain quite large. Further explicit reductions can come from recognizing that tokens that occur extremely rarely likely carry little predictive value. However, There is no guarantee this is true.
 
 In subsequent sections, we outline our approach to feature engineering, supervised learning, and incorporating unlabeled data. Our main experimental contributions can be defined as follows:
 \begin{enumerate}
+  \vspace{-2mm}
   \item We extensively explore feature engineering pipelines, including tokenization creation and resolution methods.
+  \vspace{-2mm}
     \item We explore dimensionality reduction techniques with and without the use of unlabeled data with Truncated SVD and Word2Vec.
-      \item We regularize our model, Logistic Regression, in several different ways as well as apply different gradient based solvers for the optimization.
+  \vspace{-2mm}
+      \item We regularize our model, Logistic Regression, in several different ways and apply different gradient based solvers to the optimization.
+  \vspace{-2mm}
 \end{enumerate}
 
 
@@ -84,7 +89,7 @@ In subsequent sections, we outline our approach to feature engineering, supervis
 \section{Supervised Learning}%
 \label{sec:supervised_learning}
 
-In this section, we discuss methods of improving classification performance without making use ofunlabeled data. The following sections are separated by feature and model-based exploration.
+In this section, we discuss methods of improving classification performance without making use of unlabeled data. The following sections are separated by feature- and model-based exploration.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,7 +99,7 @@ In this section, we discuss methods of improving classification performance with
 \label{sub:feature_engineering}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To begin our analysis, a few small tests on our input data's vocabulary size was conducted. As expected, the tokens found with a simple regular expression (\textit{regex})  separator exhibited an exponential decrease in frequency from most common to least. Fortunately, we were able to drop the differential between the most common token and the least by an order of magnitude simply be removing stopwords, as shown in Figure \ref{fig:stopwords}.
+To begin our analysis, a few small tests on our input data's vocabulary size were conducted. As expected, the tokens found with a simple regular expression (\textit{regex}) separator exhibited an exponential decrease in frequency from most common to least. Fortunately, we were able to drop the differential between the most common token and the least by an order of magnitude simply be removing stopwords, as shown in Figure \ref{fig:stopwords}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Stopwords token filtering figure
@@ -105,10 +110,11 @@ To begin our analysis, a few small tests on our input data's vocabulary size was
   \caption{Token frequencies in training data before and after 
   stopwords removed from the dataset}%
   \label{fig:stopwords}
+  \vspace{-10pt}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-While this simple experiment gave us insight into the distribution of the token frequencies, we still needed to better understand the influence different preprocessing operations had on vocabulary size. As mentioned in the introduction, several techniques exist to reduce vocabulary size while largely preserving the semantic meaning of the input. A subset of these were applied to the input data, and the results are displayed in Figure \ref{fig:imgs/token_filter}. After regex separation, several additional filters are applied to the training data, with the steepest drop in cardinality occurring from the limitation of minimum document frequency to two. This implies that many tokens only occur within a single document and likely only once in the training dataset. 
+While this simple experiment gave us insight into the distribution of the token frequencies, we know little of vocabulary size. As mentioned in the introduction, several techniques exist to reduce vocabulary size and preserve meaning. A subset of these were applied to the input data, and the results are displayed in Figure \ref{fig:imgs/token_filter}. After regex separation, several additional filters are applied to the training data, where it can be seen that many tokens occur only once.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Token dimensionality exploration
@@ -120,11 +126,11 @@ While this simple experiment gave us insight into the distribution of the token 
     From left to right, the strings are regex separated, then case and
   punctuation is resolved, with final filters trimming rare tokens}
   \label{fig:imgs/token_filter}
+  \vspace{-10pt}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To test different theories about the impact of feature engineering, we ran a grid search of several different preprocessing methods on a standard implementation of Logistic Regression (lbfgs solver with L2 loss). Specifically, we leveraged two different tokenization strategies: a conservative regex tokenization from Scikit-Learn's \texttt{CountVectorizer} and a more sophisticated method from Python's \texttt{NLTK Toolkit}. In addition, we also resolved the case of characters and removed punctuation as additional ablations. Finally, lemmatization, or deconjugating words, was applied as was the removal of stopwords. Once these were completed, vectors were generated from the tokens with two methods: the traditional bag-of-words \cite {luhn1957statistical} count vectorization, and tf-idf vectorization. Tf-idf, or term-frequency inverse document frequency \cite{jones1972statistical}, extends on the bag of words notion by upweighting terms that do not appear in many documents. That is, if a term occurs rarely across documents, it should be upweighted as it may prove more predictive.
-
+To test different theories about the impact of feature engineering on classification, we ran a grid search of several different preprocessing methods on a standard implementation of Logistic Regression (lbfgs solver with L2 loss). Specifically, we leveraged two different tokenization strategies: a conservative regex tokenization from Scikit-Learn's \texttt{CountVectorizer} and a more sophisticated method from Python's \texttt{NLTK Toolkit}. In addition, we also resolved the case of characters and removed punctuation. Finally, lemmatization, or deconjugating words, was applied, as was the removal of stopwords. Once these were completed, vectors were generated from the tokens with two methods: the traditional bag-of-words \cite {luhn1957statistical} count vectorization, and tf-idf vectorization. Tf-idf, or term-frequency inverse document frequency \cite{jones1972statistical}, extends on the bag of words notion by upweighting terms that do not appear in many documents and vice versa. That is, if a term occurs rarely across documents, it should be upweighted as it may prove more predictive.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,7 +165,7 @@ To test different theories about the impact of feature engineering, we ran a gri
 \FloatBarrier
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Displayed in Table 1, several findings surprised us. In particular, the removal of stopwords tended to hinder performance or at least not improve it substantially. Tf-idf vectorization, often thought as an improvement to standard counts, actually performed worse in all cases. These two phenomena may be due to the fact that the filler words a candidate uses are somewhat unique to their speaking style and therefore predictive. Less surprisingly, nltk's more sophisticated tokenization engine outperformed the more conservative regex counterpart, perhaps slightly due to how it handles contractions (breaking \texttt{can't} into \texttt{ca} + \texttt{n't} to separate the contraction from the root word). The resolution of case, punctuation, and lemmatization also tended to lead to improvements, though at times this boost was not substantial, perhaps due to the fundamential difficulty of the task and the capacity of our model. Fortunately, this grid search did identify a new method of featurizing the input corpus that led to a boost of 2.7\% and 2.1\% over the validation and testing baselines, respectively. We used the preprocessing protocol that achieved the highest score with the lowest dimensionality for out following analyses.
+Displayed in Table 1, the removal of stopwords tended to, surprisingly, hinder performance. Tf-idf vectorization also performed worse in all cases, running counter to expectations. These two phenomena may be due to the fact that the filler words a candidate uses are somewhat unique to their speaking style and therefore predictive. Less surprisingly, nltk's more sophisticated tokenization engine outperformed its regex counterpart, perhaps due to how it handles intelligently separates contractions (breaking \texttt{can't} into \texttt{ca} + \texttt{n't}). This grid search led to a boost of 2.7\% and 2.1\% over the validation and testing baselines, respectively. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Dimensionality Reduction
@@ -168,7 +174,7 @@ Displayed in Table 1, several findings surprised us. In particular, the removal 
 \label{sub:dimensionality_reduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-While one method of dimensionality reduction in NLP focuses on trimming out words with little predictive value, the results of the feature engineering study led us to believe this would not be as intuitive as previously thought. Therefore, we leveraged Truncated SVD, a matrix decomposition method amenable to sparse data, to generate more semantic features without needing explicitly remove tokens. Below, we ran Truncated SVD across the features generated previously for an increasing number of components. With only 2500 components, roughly a third of the original set, we were able to exceed our previous performance on the held-out validation set (denoted with red dotted line). For a separate trial, features were normalized before SVD, drastically hurting performance. We posit this is due to the sparsity of the data, where normalization is skewed by the immense presence of zero-terms.
+While one method of dimensionality reduction in NLP focuses on trimming out words with little predictive value, the results from feature engineering encouraged us to intregrate all tokens if possible. Therefore, we leveraged Truncated SVD, a matrix decomposition method amenable to sparse data, to generate more semantic features without needing explicitly remove tokens. Below, we ran Truncated SVD across the features generated previously for an increasing number of components. With only 2500 components, roughly a third of the original vocabulary, we were able to exceed our previous performance on the held-out validation set (denoted with a red dotted line). Normalizing token counts before SVD had a negative effect on performance. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -181,6 +187,7 @@ While one method of dimensionality reduction in NLP focuses on trimming out word
   selection after Truncated SVD applied with varying numbers of 
  components}%
   \label{fig:tsvd}
+  \vspace{-10pt}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -194,7 +201,7 @@ While one method of dimensionality reduction in NLP focuses on trimming out word
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-With a smaller set of features and boosted performance on the baseline model, we turned our attention to model tuning directly. Concerned with the effect of dimensionality on the Logistic Regression, we explored many regularization strategies including L1 and L2 loss. For comparison, we also ran a trial where no regularization was applied.
+With a smaller set of features and boosted performance on the baseline model, we turned our attention to model tuning directly. Concerned with the effect of dimensionality on the Logistic Regression, we explored regularization with L1 and L2 loss. For comparison, we also ran a trial where no regularization was applied.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Model Grid Search Plot
@@ -225,7 +232,7 @@ With a smaller set of features and boosted performance on the baseline model, we
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In general, L1 loss appeared to be a inferior regularization of the input data, surprising since inducing sparsity on a high-dimensional dataset would improve the predictive power of the model \cite{turney2010frequency}. Moreover, the non-regularized model performed well on the validation set but hurt performance on the testing set, implying the non-regularized optima was not as robust as its regularized counterparts. Affirming this notion, the best L2 loss configuration boosted our performance on our testing submission. 
+In general, L1 loss, which induces sparsity, did not perform as well as L2 (weight decay) regularization. Moreover, the non-regularized model performed well on the validation set but hurt performance on the testing set, it was not as robust as its regularized counterpart. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Semi-Supervised Learning 
@@ -241,7 +248,7 @@ embeddings to encode semantic meaning between tokens.
 \subsection{Word2Vec for Text Classification}%
 \label{sub:word2vec_for_text_classification}
 
-Word2Vec \cite{mikolov2013distributed} is a linear model implementation what seeks to embed words that co-occur together, assuming word proximity implies shared meaning \cite{lilleberg2015support} . In our implementation, we use a window of 5, meaning the two words to the left and right of a word are considered during the embedding process. More interesting, this method implicitly downsamples more frequent words, effectively handling the influence of stopwords. As shown in Figure \ref{fig:imgs/w2v_pca}, a Principal Component Analysis (PCA) decomposition of a selection of word embeddings, candidates tend to be co-located together, as do words connoted with conflict or health. 
+Word2Vec \cite{mikolov2013distributed} is a vectorization method that seeks to embed words that co-occur together, assuming word proximity implies shared meaning \cite{lilleberg2015support}. In our implementation we use a window of 5, meaning the two words to the left and right of a target word are considered during the embedding process. More interesting, this method implicitly downsamples more frequent words, effectively handling the influence of stopwords. As shown in Figure \ref{fig:imgs/w2v_pca}, a Principal Component Analysis (PCA) decomposition a selection of word embeddings, candidates tend to be co-located together, as do words grouped by topic, like conflict or health. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -253,11 +260,12 @@ Word2Vec \cite{mikolov2013distributed} is a linear model implementation what see
   \caption{Visualization of Word2Vec embeddings with PCA with a selection 
   of common political terms. Embeddings appear to capture semantic meaning}%
   \label{fig:imgs/w2v_pca}
+  \vspace{-8pt}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We chose to utilize word embedding models over the alternatives because we felt it would better generalize similarity in meaning between tokens and boost performance. Other implementations considered included dataset augmentation with unlabeled data. First, a model is trained with labeled data, then it is iteratively used to label unlabeled instances. If these predictions meet certain confidence criteria, then the sample is added to the training set and the process continues until performance ceases to improve. Though a promising option, we were concerned the approach would cause the trained model to diverge under its own, highly imperfect predictions, leading to poorer performance overall. Empricially validating this assumption is one promising avenue for future research.
+We chose to utilize word embedding models over the alternatives because we felt it would better generalize similarity in meaning between tokens and boost performance. Other implementations considered include dataset augmentation with unlabeled data. Though a promising option, we were concerned the approach would cause the trained model to diverge under its own, imperfect predictions, leading to poor performance. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -266,9 +274,9 @@ We chose to utilize word embedding models over the alternatives because we felt 
 \subsection{Experimental Results and Discussion}%
 \label{subseq:experimental_results_and_discussion}
 
-Given a large corpus of 43,000 unlabeled speech snippets, we then trained several Word2Vec modelswith different fractions of that data. The embedded dimensionality of these words is 300, a reduction of the previous vocabulary size by an order of magnitude. To generalize these word embeddings to documents, the word embeddings in the document are averaged, an order agnostic but somewhat performant approach \cite{turney2010frequency}. Taken alone, these document embeddings were not able to come close to even the initial baseline performance, but increasing the document fraction of the Word2Vec model did improve performance in almost all cases, peaking at 0.34.
+Given a large corpus of 43,000+ unlabeled speech snippets, we then trained several Word2Vec modelswith different fractions of the dataset. The embedded dimensionality of these words was set to 300 (a common standard), reducing the original dimensionality by an order of magnitude. To generalize this context to documents, the word embeddings in the document are averaged, an order agnostic but somewhat performant approach \cite{turney2010frequency}. Taken alone, these document embeddings were not able to come close to even the initial baseline performance, but increasing the document fraction of the Word2Vec model did improve performance in almost all cases, peaking at 0.34 when all unlabeled data is used.
 
-We think one potential reason the Word2Vec embeddings alone did not boost or even meet previous performance is due to its averaging of embeddings. Since documents are composed of token sequences of varying length, it is typically not useful to sum the embeddings. Averaging these embeddings overcomes this issue, but also comes with the cost that meaning is obscured across many tokens. Since many presidential candidates speak on similar topics, there may only be subtle differences in the composite embeddings. This is verified by looking at the embeddings of documents taken from the primary speeches of Barack Obama and Hillary Clinton, the two most common classes in the dataset, displayed in Figure \ref{fig:imgs/PCA_w2v_Obama}. 
+We think one potential reason the Word2Vec embeddings alone did not meet previous performance is due to its averaging of word embeddings to make document vectors. Since documents are composed of token sequences of varying length, it is typically not useful to sum the embeddings. Averaging these embeddings overcomes this issue, but carries the cost of diluting document meaning across many tokens. Since many presidential candidates speak on similar topics, there may only be subtle differences in the composite embeddings. This is verified by looking at the embeddings of documents taken from the primary speeches of Obama and Clinton, the two most common classes in the dataset, displayed in Figure \ref{fig:imgs/PCA_w2v_Obama}. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -281,39 +289,40 @@ We think one potential reason the Word2Vec embeddings alone did not boost or eve
   as defined by their speech embeddings. Little separation can be cleaned,
 likely because order is not considered in embedding creation and candidates discuss similar topics}%
   \label{fig:imgs/PCA_w2v_Obama}
+  \vspace{-10pt}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Examining this phenomena further, we find that among the 100 most common phrases tied to the tokens \texttt{obama} and \texttt{clinton}, only half of them were unique between them. Indeed, much of what these candidates discuss is interrelated, as would be expected in a presidential race. With that said, there are still several defining features the embedding model was able to discern. Notably, the model tied the prases \texttt{tony}, \texttt{foreigner}, and \texttt{president} strongly to Obama but not Clinton. \texttt{tony} refers to Tony Rezko, an Obama fundraiser who was sentenced to prison, while the others features, namely comments about his citizenship by other candidates and his ascent to president. By contrast, words such as \texttt{bubba} allude to her campaign to win the vote of white men in the southern United States.
+Examining this phenomena further, we find that among the 100 most common phrases tied to the tokens \texttt{obama} and \texttt{clinton}, half were shared. Much of what these candidates discuss is interrelated, as expected in a presidential race. With that said, there are still several defining features the embedding model discerned. Notably, the model tied the prases \texttt{tony}, \texttt{foreigner}, and \texttt{president} strongly to Obama but not Clinton. \texttt{tony} refers to Tony Rezko, an Obama fundraiser who was sentenced to prison, while the other features refer to comments about his citizenship and his ascent to president. By contrast, for Hillary Clinton, words such as \texttt{bubba} allude to her campaign to win the vote of white men in the southern United States.
 
-As shown, there is considerable overlap in what the two candidates discussed, as described by their document embeddings mapped down to two dimensions. Thus, to differentiate candidates more effectively, these 300-dimensional embeddings were concatenated together with the SVD features of the previous analysis. By incorporating embeddings from models with different amounts of labeled data, we explored performance changes with our tuned model and this concatenated feature set. 
+There is considerable overlap in what the two candidates discussed, as described by their document embeddings mapped down to two dimensions. Thus, to differentiate candidates more effectively, these 300-dimensional embeddings were concatenated with the SVD features of the previous analysis. By incorporating semi-supervised embeddings with labeled data, we explored performance changes with our tuned model.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Word2Vec Performance
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \vspace{-10pt}
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=1\linewidth]{imgs/w2v_classification.png}
   \caption{Performance with concatenated Word2Vec document embeddings and different fractions of unlabeled documents and SAG, LBFGS gradient solvers}
   \label{fig:imgs/w2v_classification}
+  \vspace{-11pt}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Visualized in Figure \ref{fig:imgs/w2v_classification}, Word2Vec models that were trained on 60\%of the unlabeled data proved optimal for downstream classification. It is surprising to see that 
-performance decreased as the fraction of unlabeled data utilized exceeded 60\%, and may be due to stochasticity in training or other spurious modes of interaction between our original and embedded data representations. Regardless, The performance on our validation set was again improved, though unfortunately this boost in performance again did not translate to the validation set, though it exceeded the baseline.
+Visualized in Figure \ref{fig:imgs/w2v_classification}, Word2Vec models that were trained on 60\%of the unlabeled data proved optimal for downstream classification. It is surprising to see that performance decreased as the fraction of unlabeled data utilized exceeded 60\%, and may be due to randomness or spurious interactions between our original and embedded data representations. Regardless, the performance on our validation set was again improved, though unfortunately this boost in performance did not translate to the validation set, though it exceeded the baseline.
 
-One reason for this validation-test performance mismatch may be due to the fact that the validation set is 10 times smaller than the training set and 100 times smaller than the testing set. Future experimentation could benefit from a more balanced split. We can also explore performance more closely with a few examples. In one document, the phrase \texttt{when Bill asks what time it is } was first predicted to be said by Obama, as the word \texttt{Bill} (Bill Clinton) was conflated with legistlation. The Word2Vec model disambiguated this issue and correctly predicted Hillary Clinton, who was speaking of her husband. Unfortunately, this extra context was not always helpful. The phrase \texttt{the comatose stance "Re-elect Obama"}, stated in criticism of Democrats by Gingrich, was misinterpreted by the additional context of democrats supporting Obama in his bid for re-election in 2012. Instead of predicting Gingrich, the model now associated the phrase with Hillary Clinton, a vocal proponent of the democratic party. Additional context does not always improve classification.
+We can also explore performance more closely with a few examples. In one document, the phrase \texttt{when Bill asks what time it is} was first predicted to be said by Obama, as the word \texttt{Bill} (Bill Clinton) was conflated with legislation. The Word2Vec model disambiguated this issue and correctly predicted Hillary Clinton, who was speaking of her husband. Unfortunately, this extra context was not always helpful. The phrase \texttt{the comatose stance, "Re-elect Obama"}, stated as criticism of Democrats by Newt Gingrich, was misinterpreted by the additional context that Democrats supported Obama in his bid for re-election in 2012. Instead of predicting Gingrich, the model now associated the phrase with Hillary Clinton, a vocal proponent of the Democratic party.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Conclusion
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusions and Further Exploration}%
-\label{sec:conclusion_and_further_exploration}
+\section{Conclusion}%
+\label{sec:conclusion}
 
-Through a sequence of grid search explorations, model tuning, and contextual word embeddings, we were able to improve our classifier beyond the existing baseline. We feel that this can be credited to our consideration of data tokenization, feature engineering, and principled methods for dimensionality reduction. However, the additional context we incorporated was not universally beneficial. Some defining traits of this project include the restriction to a Logistic Regression classifier, a highly imbalanced split between train, validation, and test data, as well as a difficult classification objective that utilizes a small snippet of a candidate's speech. Because of these defining traits, we were only able to boost performance in this classifier a few percent. With that said, if restrictions regarding models and external data were relaxed, we feel we could boost our performance far higher than the improvement noted in this report.
+Through a sequence of grid search explorations, model tuning, and contextual word embeddings, we were able to improve our classifier beyond the existing baseline. We feel that this can be credited to our consideration of data tokenization, feature engineering, and principled methods for dimensionality reduction. However, the additional context we incorporated was not universally beneficial. In some cases, additional context actually further confused the canonical meaning, usually in cases where flowery or idiomatic language was utilized. However, with context the model improved overall.
 
-Some potential avenues for future research within the stated constraints of the problem include alternative word embedding strategies such as GloVE \cite{pennington2014glove} may boost performance by better capturing context between words. In addition, designing a method to incorporate word order would likely improve the expressivity of our features. This could be a simple as incorporating bigrams or training a sequence \cite{hochreiter1997long} or self-attention \cite{vaswani2017attention} model to keep a memory statistic of the sequence information.External sources of data such as a pretrained embedding model on a larger corpus could be useful as well and fine tuned for our specific objective.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -322,7 +331,7 @@ Some potential avenues for future research within the stated constraints of the 
 % Statement of Collaboration
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Statement of Collaboration}
-For this project I utilized a variety of resources. These include articles read from google scholar, API documentation for different NLP packages,  and office hours with Dr. Singh. Beyond these resources, I completed this project in isolation and the content within this report is my own.
+For this project I utilized a variety of resources. These include articles read from google scholar, API documentation for different NLP packages, and office hours with Dr. Singh. Beyond these resources, I completed this project in isolation and the content within this report is my own.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -332,7 +341,12 @@ For this project I utilized a variety of resources. These include articles read 
 
 \appendix
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Future Research
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Future Research}%
+\label{sec:future_research}
+Some potential avenues for future research within the stated constraints of the problem include alternative word embedding strategies such as GloVE \cite{pennington2014glove}. In addition, designing a method to incorporate word order would likely improve the expressivity of our features. This could be as simple as incorporating bigrams or training a sequence \cite{hochreiter1997long} or self-attention \cite{vaswani2017attention} model to keep a memory statistic of the sequence information. External sources of data such as a pretrained embedding model on a larger corpus could be useful as well and fine tuned for our specific objective.
 
 
 \end{document}% File acl2020.tex

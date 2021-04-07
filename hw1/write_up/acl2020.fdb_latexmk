@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex acl2020"] 1617825283 "acl2020.aux" "acl2020.bbl" "acl2020" 1617826144
+["bibtex acl2020"] 1617834174 "acl2020.aux" "acl2020.bbl" "acl2020" 1617835312
   "./acl_natbib.bst" 1617612260 47585 c671f071a8f3957857acb307a7173505 ""
-  "acl2020.aux" 1617825348 3943 ff08173de807413c6bbdf491b28bdec3 "pdflatex"
+  "acl2020.aux" 1617835312 3933 39cd31167b642ee914e0e9402f41efec "pdflatex"
   "custom.bib" 1617817632 2606 6dc8d20ecba9e5257f67e01624abb761 ""
   (generated)
-  "acl2020.blg"
   "acl2020.bbl"
-["pdflatex"] 1617825347 "acl2020.tex" "acl2020.pdf" "acl2020" 1617826144
+  "acl2020.blg"
+["pdflatex"] 1617835311 "acl2020.tex" "acl2020.pdf" "acl2020" 1617835312
   "/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -88,11 +88,11 @@
   "/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1557342064 3277517 23507ed665b4dd9046f0f2a94bbef2be ""
   "/usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1557342086 4259635 562fc36ec496993777a6c428d8bfb811 ""
   "/usr/local/texlive/2019/texmf.cnf" 1557341546 577 d150fef99ac436ad1156e86b0892f6ef ""
-  "acl2020.aux" 1617825348 3943 ff08173de807413c6bbdf491b28bdec3 "pdflatex"
-  "acl2020.bbl" 1617825283 2704 6a552ed92d8d56a0a0d8b279c37c1b43 "bibtex acl2020"
-  "acl2020.out" 1617825347 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "acl2020.aux" 1617835312 3933 39cd31167b642ee914e0e9402f41efec "pdflatex"
+  "acl2020.bbl" 1617834174 2704 6a552ed92d8d56a0a0d8b279c37c1b43 "bibtex acl2020"
+  "acl2020.out" 1617835311 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   "acl2020.sty" 1617731600 22040 0ceec98c5945ceb9f26bb90e376d2327 ""
-  "acl2020.tex" 1617825384 26241 01bf58a494f0e7818837d5b6b77f7220 ""
+  "acl2020.tex" 1617835310 23195 2ed6a3cf3dfac06bcd39a73f96f3bde0 ""
   "imgs/PCA_w2v_Obama.png" 1617745383 53245 54dcb05be07e356ffd06d8cdc623ec81 ""
   "imgs/stopwords.png" 1617673144 47230 196a80f17350b281266f6ddd2e1afb48 ""
   "imgs/token_filter.png" 1617673287 49469 bc56b382f83cf60b4163e81aebadba98 ""
