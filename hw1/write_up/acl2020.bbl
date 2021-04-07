@@ -1,5 +1,37 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{9}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Hochreiter and Schmidhuber(1997)}]{hochreiter1997long}
+Sepp Hochreiter and J{\"u}rgen Schmidhuber. 1997.
+\newblock Long short-term memory.
+\newblock \emph{Neural computation}, 9(8):1735--1780.
+
+\bibitem[{Jones(1972)}]{jones1972statistical}
+Karen~Sparck Jones. 1972.
+\newblock A statistical interpretation of term specificity and its application
+  in retrieval.
+\newblock \emph{Journal of documentation}.
+
+\bibitem[{Lilleberg et~al.(2015)Lilleberg, Zhu, and
+  Zhang}]{lilleberg2015support}
+Joseph Lilleberg, Yun Zhu, and Yanqing Zhang. 2015.
+\newblock Support vector machines and word2vec for text classification with
+  semantic features.
+\newblock In \emph{2015 IEEE 14th International Conference on Cognitive
+  Informatics \& Cognitive Computing (ICCI* CC)}, pages 136--140. IEEE.
+
+\bibitem[{Luhn(1957)}]{luhn1957statistical}
+Hans~Peter Luhn. 1957.
+\newblock A statistical approach to mechanized encoding and searching of
+  literary information.
+\newblock \emph{IBM Journal of research and development}, 1(4):309--317.
+
+\bibitem[{Mikolov et~al.(2013)Mikolov, Sutskever, Chen, Corrado, and
+  Dean}]{mikolov2013distributed}
+Tomas Mikolov, Ilya Sutskever, Kai Chen, Greg Corrado, and Jeffrey Dean. 2013.
+\newblock Distributed representations of words and phrases and their
+  compositionality.
+\newblock \emph{arXiv preprint arXiv:1310.4546}.
 
 \bibitem[{Pennington et~al.(2014)Pennington, Socher, and
   Manning}]{pennington2014glove}
@@ -7,5 +39,23 @@ Jeffrey Pennington, Richard Socher, and Christopher~D Manning. 2014.
 \newblock Glove: Global vectors for word representation.
 \newblock In \emph{Proceedings of the 2014 conference on empirical methods in
   natural language processing (EMNLP)}, pages 1532--1543.
+
+\bibitem[{Turney and Pantel(2010)}]{turney2010frequency}
+Peter~D Turney and Patrick Pantel. 2010.
+\newblock From frequency to meaning: Vector space models of semantics.
+\newblock \emph{Journal of artificial intelligence research}, 37:141--188.
+
+\bibitem[{Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones,
+  Gomez, Kaiser, and Polosukhin}]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017.
+\newblock Attention is all you need.
+\newblock \emph{arXiv preprint arXiv:1706.03762}.
+
+\bibitem[{Zhang et~al.(2010)Zhang, Jin, and Zhou}]{zhang2010understanding}
+Yin Zhang, Rong Jin, and Zhi-Hua Zhou. 2010.
+\newblock Understanding bag-of-words model: a statistical framework.
+\newblock \emph{International Journal of Machine Learning and Cybernetics},
+  1(1-4):43--52.
 
 \end{thebibliography}
