@@ -115,9 +115,8 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/latex-fonts/lasy10.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm
+INPUT acl2020.bbl
+INPUT acl2020.bbl
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT /usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map
@@ -133,10 +132,6 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/courier/pcrr7t.vf
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT acl2020.aux
 INPUT ./acl2020.out
 INPUT ./acl2020.out

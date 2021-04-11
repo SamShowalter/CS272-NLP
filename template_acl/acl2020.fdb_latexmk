@@ -1,13 +1,12 @@
 # Fdb version 3
-["bibtex acl2020"] 1617670403 "acl2020.aux" "acl2020.bbl" "acl2020" 1617670406
+["bibtex acl2020"] 1617763702 "acl2020.aux" "acl2020.bbl" "acl2020" 1617763741
   "./acl_natbib.bst" 1617612260 47585 c671f071a8f3957857acb307a7173505 ""
-  "acl2020.aux" 1617670405 712 282221bb9335e5fd52b64b6db497c42a "pdflatex"
+  "acl2020.aux" 1617763703 702 40b4376c26424517566c398aea3835d6 "pdflatex"
   "acl2020.bib" 1617612260 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "anthology.bib" 0 -1 0 ""
   (generated)
   "acl2020.blg"
   "acl2020.bbl"
-["pdflatex"] 1617670404 "acl2020.tex" "acl2020.pdf" "acl2020" 1617670406
+["pdflatex"] 1617763702 "acl2020.tex" "acl2020.pdf" "acl2020" 1617763741
   "/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -76,13 +75,13 @@
   "/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1557342064 3277517 23507ed665b4dd9046f0f2a94bbef2be ""
   "/usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1557342086 4259635 562fc36ec496993777a6c428d8bfb811 ""
   "/usr/local/texlive/2019/texmf.cnf" 1557341546 577 d150fef99ac436ad1156e86b0892f6ef ""
-  "acl2020.aux" 1617670405 712 282221bb9335e5fd52b64b6db497c42a "pdflatex"
-  "acl2020.bbl" 0 -1 0 "bibtex acl2020"
-  "acl2020.out" 1617670405 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "acl2020.aux" 1617763703 702 40b4376c26424517566c398aea3835d6 "pdflatex"
+  "acl2020.bbl" 1617763702 121 176ef3ab05ccef1cd7a1f3b4a71ca9dc "bibtex acl2020"
+  "acl2020.out" 1617763702 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   "acl2020.sty" 1617612260 22040 8c30b4334d342bee3a3cd0cf0cdcb467 ""
-  "acl2020.tex" 1617670403 4156 7e3c4f489bb0dbd8cb710284fc83e402 ""
+  "acl2020.tex" 1617748329 4003 831246bc427f6b74043879ec08db8845 ""
   (generated)
-  "acl2020.out"
-  "acl2020.aux"
   "acl2020.pdf"
   "acl2020.log"
+  "acl2020.out"
+  "acl2020.aux"
