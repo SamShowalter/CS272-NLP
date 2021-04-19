@@ -1,7 +1,7 @@
 import glob
 import os
 import pickle
-# import streamlit as st
+import streamlit as st
 
 from generator import Sampler
 from lm import LangModel, Unigram, Ngram

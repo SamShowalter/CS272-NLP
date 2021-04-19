@@ -102,6 +102,26 @@ def read_texts(tarfname, dname):
     print(dname," read.", "train:", len(data.train), "dev:", len(data.dev), "test:", len(data.test))
     return data
 
+def learn_ngram(data,n):
+    """Learns a bigram model from data.train.
+
+    It also evaluates the model on data.dev and data.test, along with generating
+    some sample sentences from the model.
+    """
+    from lm import Ngram
+    ngram = Ngram(n)
+    ngram.fit_corpus(data.train)
+    print("vocab:", len(ngram.vocab()))
+    # evaluate on train, test, and dev
+    print("train:", ngram.perplexity(data.train))
+    print("dev  :", ngram.perplexity(data.dev))
+    print("test :", ngram.perplexity(data.test))
+    from generator import Sampler
+    sampler = Sampler(ngram)
+    for _ in range(2):
+        print("sample: ", " ".join(str(x) for x in sampler.sample_sentence([], max_length=20)))
+    return ngram
+
 def learn_unigram(data):
     """Learns a unigram model from data.train.
 
@@ -167,14 +187,25 @@ if __name__ == "__main__":
     dnames = ["brown", "reuters", "gutenberg"]
     datas = []
     models = []
+
     # Learn the models for each of the domains, and evaluate it
     for dname in dnames:
         print("-----------------------")
         print(dname)
         data = read_texts("data/corpora.tar.gz", dname)
         datas.append(data)
-        model = learn_unigram(data)
+        model = learn_ngram(data,2)
         models.append(model)
+
+    # # Learn the models for each of the domains, and evaluate it
+    # for dname in dnames:
+    #     print("-----------------------")
+    #     print(dname)
+    #     data = read_texts("data/corpora.tar.gz", dname)
+    #     datas.append(data)
+    #     model = learn_unigram(data)
+    #     models.append(model)
+
     # compute the perplexity of all pairs
     n = len(dnames)
     perp_dev = np.zeros((n,n))
