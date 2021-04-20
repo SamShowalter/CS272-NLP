@@ -10,5 +10,5 @@ s = "This            is a test sent'sence \n for ngram examinati__on"
 # print(res)
 # # gs = ngrams(s.split(" "), 3)
 # # print(list( gs ))
-
-print(np.log2([2,3,4,45,5]))
+a = [1,2,3,4]
+print(a[-2:])

@@ -1,4 +1,3 @@
-
 #!/bin/python
 
 from __future__ import print_function
@@ -62,14 +61,14 @@ class Sampler:
                 break
         return word
 
-if __name__ == "__main__":
-    from lm import Unigram
-    unigram = Unigram()
-    corpus = [
-        [ "sam", "i", "am","Eliza" ]
-    ]
-    unigram.fit_corpus(corpus)
-    print(unigram.model)
-    sampler = Sampler(unigram)
-    for i in range(10):
-        print(i, ":", " ".join(str(x) for x in sampler.sample_sentence([])))
+# if __name__ == "__main__":
+#     from lm import Unigram
+#     unigram = Unigram()
+#     corpus = [
+#         [ "sam", "i", "am" ]
+#     ]
+#     unigram.fit_corpus(corpus)
+#     print(unigram.model)
+#     sampler = Sampler(unigram)
+#     for i in range(10):
+#         print(i, ":", " ".join(str(x) for x in sampler.sample_sentence([])))
