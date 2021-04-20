@@ -124,14 +124,18 @@ class Unigram(LangModel):
         return self.model.keys()
 
 
-# YOU NEED TO DEBUG THIS
 class Ngram(LangModel):
-    def __init__(self, ngram_size, unk_prob = 0.0001):
+    def __init__(self, ngram_size, smoothing = 'add-k', k = 0.01, unk_prob = 0.0001):
         self.n = ngram_size
+        self.smoothing = smoothing
+        self.k = k
         self.context_size = self.n-1
         self.lunk_prob = log(unk_prob, 2)
         self.model = {}
         self.vocabulary = set()
+
+        if self.smoothing == 'backoff':
+            self.backoff_models = {}
 
     def make_valid_prefix(self, sentence):
         if sentence == False:
@@ -148,28 +152,39 @@ class Ngram(LangModel):
         valid_prefix = tuple(sentence[-self.context_size:])
         return valid_prefix
 
-    # required, update the model when a sentence is observed
     def fit_sentence(self, sentence):
+        if self.smoothing == 'backoff':
+            self._fit_sentence_unigram(sentence)
+            for i in range(2, self.n + 1):
+                self._fit_sentence_ngram(sentence, n)
+
+    def _fit_sentence_unigram(self, sentence):
+        sentence = sentence + ['END_OF_SENTENCE']
+        for w in sentence:
+            self.add_or_inc(None, w, 1)
+
+    def _fit_sentence_ngram(self, sentence, n):
 
         #Pad start of every sentence so all characters modeled
         # Context size is always greater than zero
+        context_size = n - 1
         pref =['<SOS>']
         padding = []
-        if (self.context_size -1) > 0:
-            padding = ['<padding>']*(self.context_size - 1)
+        if (context_size -1) > 0:
+            padding = ['<padding>']*(context_size - 1)
         pref = padding + pref
 
-        # sentence = self.tokenize(sentence)
+        # sentence = tokenize(sentence)
         tokens = pref + sentence + ['END_OF_SENTENCE']
 
         # Trigram example
         # [this, is, a, token] -> (this is) -> a
-        for i in range(self.n - 1, len(tokens), 1):
-            context = tuple(tokens[i-self.context_size:i])
-            self.add_or_inc(context, tokens[i])
+        for i in range(n - 1, len(tokens), 1):
+            context = tuple(tokens[i-context_size:i])
+            self.add_or_inc(context, tokens[i], n)
 
 
-    def add_or_inc(self, context, word):
+    def add_or_inc(self, context, word, n):
         """Add or increment either context or
         model-context dictionary
 
@@ -178,44 +193,85 @@ class Ngram(LangModel):
 
         """
         #Increment context
+
+        if n == self.n:
+            model = self.model
+        else:
+            model = self.backoff_models[n]
         self.vocabulary.add(word)
-        if (context not in self.model):
-            self.model[context] = {}
-            self.model[context]['context_size'] = 1
+
+        if (n == 1):
+            self._add_inc_unigram(word,model)
+        else:
+            self._add_inc_ngram(context, word, n)
+
+    def _add_inc_unigram(self,w, model):
+        if w in model:
+            model[w] += 1.0
+        else:
+            model[w] = 1.0
+
+    def _add_inc_ngram(self, context, word, model):
+
+        if (context not in model):
+            model[context] = {}
+            model[context]['context_size'] = 1
 
         else:
-            self.model[context]['context_size'] += 1
+            model[context]['context_size'] += 1
 
         #Increment context
-        if (word not in self.model[context]):
-            self.model[context][word] = 1
+        if (word not in model[context]):
+            model[context][word] = 1
         else:
-            self.model[context][word] += 1
+            model[context][word] += 1
 
+    def unigram_norm(self, prob_model, model):
+        """Normalize to probabilities"""
+        tot = 0.0
+        for word in model:
+            tot += model[word]
+        for word in model:
+            prob_model[word] = model[word]/tot
 
+    def ngram_norm(self, prob_model, model):
+        #Model for ngram normalization
+        vocab_len = len(self.vocabulary)
+        for context in model.keys():
+            prob_model[context] = {}
+            prob_model[context]['<OOV>'] = (self.k /
+                        (self.model[context]['context_size'] + self.k*vocab_len))
+            for word in model[context].keys():
+                if (word in ['context_size','<OOV>']):
+                    continue
+                prob_model[context][word] = \
+                    ((model[context][word] + self.k) /
+                     (model[context]['context_size'] + self.k*vocab_len))
 
     # optional, if there are any post-training steps (such as normalizing probabilities)
     # I handle this in different functions
     # I also can calculate probabilities in O(1) time so not really needed
-    def norm(self, smoothing = 0.005):
+    def norm(self):
         """
         Make conditional probability distribution
         for all of the contexts
 
         """
         self.prob_model = {}
-        vocab_len = len(self.vocabulary)
-        #Apply Laplacian smoothing for now
-        for context in self.model.keys():
-            self.prob_model[context] = {}
-            self.prob_model[context]['<OOV>'] = (smoothing /
-                        (self.model[context]['context_size'] + smoothing*vocab_len))
-            for word in self.model[context].keys():
-                if (word == 'context_size'):
-                    continue
-                self.prob_model[context][word] = \
-                    ((self.model[context][word] + smoothing) /
-                     (self.model[context]['context_size'] + smoothing*vocab_len))
+
+        if self.smoothing == 'backoff':
+            self.backoff_prob_models = {}
+            self.backoff_prob_models[1] = {}
+            self.unigram_norm(self.backoff_prob_models[1],
+                              self.backoff_models[1])
+            for i in range(2, self.n+1):
+                self.backoff_prob_models[i] = {}
+                self.ngram_norm(self.backoff_prob_models[i],
+                                self.backoff_models[i])
+        else:
+            self.ngram_norm(self.prob_model,
+                            self.model)
+
 
     # required, return the log2 of the conditional prob of word, given previous words
     def cond_logprob(self, word, previous, numOOV):
@@ -225,6 +281,51 @@ class Ngram(LangModel):
         # - Neither exists
 
         previous = self.make_valid_prefix(previous)
+        if self.smoothing != 'backoff':
+            return self.add_k_cond_logprob(word, previous)
+
+        else:
+            return self.backoff_cond_logprob(word, previous)
+
+    def backoff_cond_logprob(self, word,previous):
+        """Backoff conditional probabilities
+
+        :word: TODO
+        :previous: TODO
+        :returns: TODO
+
+        """
+        n = self.n
+        prob_model = self.backoff_prob_models[n]
+
+        #Try ngrams
+        while (n >1):
+            if (previous in prob_model) and (word in prob_model[previous]):
+                return np.log2(prob_model[previous][word])
+            else:
+                n -=1
+                previous = previous[1:]
+                prob_model = self.backoff_prob_models[n]
+
+        unigrams = self.backoff_prob_models[1]
+
+        #Try unigrams
+        if word in unigrams:
+            return unigrams[word]
+
+        #Return lunk prob
+        return self.lunk_prob
+
+
+
+    def add_k_cond_logprob(self, word, previous):
+        """TODO: Docstring for add_k_cond_prob.
+
+        :word: TODO
+        :previous: TODO
+        :returns: TODO
+
+        """
         if (previous in self.prob_model) and (word in self.prob_model[previous]):
             # print( ((self.prob_model[previous][word])
             #         / self.prob_model[previous]['context_size']))
