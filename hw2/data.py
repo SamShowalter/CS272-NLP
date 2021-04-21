@@ -194,8 +194,9 @@ if __name__ == "__main__":
         print(dname)
         data = read_texts("data/corpora.tar.gz", dname)
         datas.append(data)
-        # model = learn_ngram(data,2)
-        model = learn_ngram(data,2,k = None, smoothing = 'backoff', verbose = True)
+        model = learn_unigram(data)
+        # model = learn_ngram(data,2,k=0.001, smoothing = 'add-k')
+        # model = learn_ngram(data,2,k = None, smoothing = 'backoff', verbose = True)
         models.append(model)
 
     # # Learn the models for each of the domains, and evaluate it
