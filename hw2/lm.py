@@ -136,6 +136,8 @@ class Ngram(LangModel):
 
         if self.smoothing == 'backoff':
             self.backoff_models = {}
+            for i in range(1, self.n + 1):
+                self.backoff_models[i] = {}
 
     def make_valid_prefix(self, sentence):
         if sentence == False:
@@ -156,7 +158,9 @@ class Ngram(LangModel):
         if self.smoothing == 'backoff':
             self._fit_sentence_unigram(sentence)
             for i in range(2, self.n + 1):
-                self._fit_sentence_ngram(sentence, n)
+                self._fit_sentence_ngram(sentence, i)
+        else:
+            self._fit_sentence_ngram(sentence, self.n)
 
     def _fit_sentence_unigram(self, sentence):
         sentence = sentence + ['END_OF_SENTENCE']
@@ -198,12 +202,14 @@ class Ngram(LangModel):
             model = self.model
         else:
             model = self.backoff_models[n]
+
+        #Add word to vocabulary
         self.vocabulary.add(word)
 
         if (n == 1):
             self._add_inc_unigram(word,model)
         else:
-            self._add_inc_ngram(context, word, n)
+            self._add_inc_ngram(context, word, model)
 
     def _add_inc_unigram(self,w, model):
         if w in model:
@@ -239,8 +245,10 @@ class Ngram(LangModel):
         vocab_len = len(self.vocabulary)
         for context in model.keys():
             prob_model[context] = {}
+            if self.k == None:
+                self.k = 0
             prob_model[context]['<OOV>'] = (self.k /
-                        (self.model[context]['context_size'] + self.k*vocab_len))
+                        (model[context]['context_size'] + self.k*vocab_len))
             for word in model[context].keys():
                 if (word in ['context_size','<OOV>']):
                     continue
@@ -266,8 +274,8 @@ class Ngram(LangModel):
                               self.backoff_models[1])
             for i in range(2, self.n+1):
                 self.backoff_prob_models[i] = {}
-                self.ngram_norm(self.backoff_prob_models[i],
-                                self.backoff_models[i])
+                self.ngram_norm(self.backoff_prob_models[i] if i != self.n else self.prob_model,
+                                self.backoff_models[i] if i != self.n else self.model)
         else:
             self.ngram_norm(self.prob_model,
                             self.model)
@@ -296,7 +304,7 @@ class Ngram(LangModel):
 
         """
         n = self.n
-        prob_model = self.backoff_prob_models[n]
+        prob_model = self.prob_model
 
         #Try ngrams
         while (n >1):
@@ -311,7 +319,7 @@ class Ngram(LangModel):
 
         #Try unigrams
         if word in unigrams:
-            return unigrams[word]
+            return np.log2(unigrams[word])
 
         #Return lunk prob
         return self.lunk_prob

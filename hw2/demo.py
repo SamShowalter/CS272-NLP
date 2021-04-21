@@ -9,7 +9,7 @@ from lm import LangModel, Unigram, Ngram
 
 def load_lm():
     # get list of all directories with `.pkl` files
-    save_dirs = sorted(set([os.path.dirname(d) for d in glob.glob('*/*.pkl')]))
+    save_dirs = sorted(set([os.path.dirname(d) for d in glob.glob('*/*/*.pkl')]))
     save_dir = st.sidebar.selectbox("Pick a save dir to load an LM", save_dirs)
 
     # get list of all `.pkl` files in directory and pick one
