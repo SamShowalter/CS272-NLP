@@ -16,9 +16,21 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{zhang2010understanding}
+\citation{chen1999empirical}
 \bibdata{custom}
-\bibcite{zhang2010understanding}{{1}{2010}{{Zhang et~al.}}{{Zhang, Jin, and Zhou}}}
+\bibcite{chen1999empirical}{{1}{1999}{{Chen and Goodman}}{{}}}
 \bibstyle{acl_natbib}
-\newlabel{subseq:experimental_results_and_discussion}{{1.1}{1}{Experimental Results and Discussion}{subsection.1.1}{}}
-\newlabel{sec:conclusion}{{2}{1}{Conclusion}{section.2}{}}
+\newlabel{table:hyperparameter}{{1}{1}{Hyperparameter tuning results. Dev-set perplexity across all three corpuses with different smoothing. add-k and backoff (b-off) running optimal k=0.01 and n=2 for ngram models\relax }{table.caption.3}{}}
+\newlabel{sec:experimental_setup}{{2}{1}{Experimental Setup}{section.2}{}}
+\newlabel{sec:hyperparam_tuning}{{3}{1}{Hyperparameter Tuning}{section.3}{}}
+\newlabel{sec:in_domain_text_analysis_empirical}{{3.1}{1}{In-Domain Text Analysis: Empirical}{subsection.3.1}{}}
+\newlabel{sec:out_domain_text_analysis_empirical}{{3.2}{1}{Out-of-Domain Text Analysis: Empirical}{subsection.3.2}{}}
+\newlabel{table:backoff_test_perp}{{2}{1}{Test set perpexlity for each language model with stupid backoff smoothing applied. Each model is applied to every corpus.\relax }{table.caption.4}{}}
+\newlabel{sub:out_domain_text_analysis_qualitative}{{3.3}{1}{Qualitative Analysis: Language and Generation Scoring}{subsection.3.3}{}}
+\newlabel{table:sentence_scoring}{{3}{1}{Perplexity scoring of sentences (indexed in appendix \ref {table:sentence_reference} ) with best backoff smoothing language model. Columns represent the language model that created the perplexity score. Superscores represent generating model, if not human.\relax }{table.caption.5}{}}
+\newlabel{sec:conclusion}{{4}{1}{Conclusion}{section.4}{}}
+\newlabel{sec:sentence_ref}{{A}{1}{Sentence Reference}{appendix.A}{}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:imgs/smooth_all}{{1}{2}{Train and dev-set perplexity for bi- and tri-gram language models with vary k in add-k smoothing. A k=1 represents Laplacian smoothing while dropping k represents weakening the Dirichlet prior based on the data. Referenced is dev-set perplexity for unigram models.\relax }{figure.caption.1}{}}
+\newlabel{fig:backoff}{{2}{2}{Dev-set perplexity across corpuses with stupid backoff smoothing implemented with $\lambda =0.4$ and varing number of context sizes (n-gram length). Referenced is current best performance from add-k smoothing (dotted).\relax }{figure.caption.2}{}}
+\newlabel{table:sentence_reference}{{A}{3}{Sentence Reference}{appendix.A}{}}

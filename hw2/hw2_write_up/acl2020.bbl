@@ -1,10 +1,9 @@
 \begin{thebibliography}{1}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
-\bibitem[{Zhang et~al.(2010)Zhang, Jin, and Zhou}]{zhang2010understanding}
-Yin Zhang, Rong Jin, and Zhi-Hua Zhou. 2010.
-\newblock Understanding bag-of-words model: a statistical framework.
-\newblock \emph{International Journal of Machine Learning and Cybernetics},
-  1(1-4):43--52.
+\bibitem[{Chen and Goodman(1999)}]{chen1999empirical}
+Stanley~F Chen and Joshua Goodman. 1999.
+\newblock An empirical study of smoothing techniques for language modeling.
+\newblock \emph{Computer Speech \& Language}, 13(4):359--394.
 
 \end{thebibliography}
