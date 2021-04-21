@@ -66,7 +66,7 @@ def addk_ablation(n,ks):
             res_dict[d][n][k]['perplexity']['dev'] = model.perplexity(data.dev)
             res_dict[d][n][k]['perplexity']['test'] = model.perplexity(data.test)
 
-    with open("data/results/addk_ablation.pkl", 'wb') as file:
+    with open("data/results/addk_ablation_{}.pkl".format(n), 'wb') as file:
         pkl.dump(res_dict,file)
 
     return res_dict
@@ -104,6 +104,55 @@ def backoff_ablation(ns,k, res_dict):
 
     with open("data/results/backoff_ablation.pkl", 'wb') as file:
         pkl.dump(res_dict,file)
+    return res_dict
+
+def sample_sentence_pref(model, sentence, max_len = 100):
+    s = sentence.split(" ")
+    return " ".join(model.sample_sentence(prefix = s, max_length = max_len))
+
+def sampling_ablation(model_dict,prefixes):
+    """Sampling of sentences across domains a
+    -nd models
+
+    :model_dict: Dictionary of all models to try
+    :prefixes: sentence prefixes
+    :returns: result dictionary of sentences
+
+    """
+    res_dict = {}
+    for p in prefixes:
+        print(p,end = " -> ")
+        res_dict[p] = {}
+        for d in model_dict.keys():
+            print(d, end = " | ")
+            res_dict[p][d] = {}
+            res_dict[p][d]['best'] = sample_sentence_pref(model_dict[d]['best'],p, max_len = 30)
+            res_dict[p][d]['unigram'] = sample_sentence_pref(model_dict[d]['unigram'],p, max_len = 30)
+        print()
+    return res_dict
+
+def convert_sentence(sentence):
+    no_extra_spaces_lower = re.sub("\s\s+"," ",sentence)
+    alpha_numeric = re.sub("[^0-9a-zA-Z ]","", no_extra_spaces_lower)
+    return alpha_numeric.split(" ")
+
+def perplexity_ablation(model_dict, sentence_dict):
+    token_set = [convert_sentence(s) for s in sentence_dict.values()]
+    res_dict = {}
+
+    for i,sentence_toks in enumerate(token_set):
+        print(" ".join(sentence_toks))
+        print(" -> ", end = "")
+        res_dict[i] = {}
+        for d in model_dict.keys():
+            print(d, end = " | ")
+            best = model_dict[d]['best']
+            unigram = model_dict[d]['unigram']
+            res_dict[i][d] = {}
+            res_dict[i][d]['best'] = best.lm.perplexity([ sentence_toks ])
+            res_dict[i][d]['unigram'] = unigram.lm.perplexity([ sentence_toks ])
+        print()
+
     return res_dict
 
 

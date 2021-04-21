@@ -103,7 +103,7 @@ def read_texts(tarfname, dname):
     print(dname," read.", "train:", len(data.train), "dev:", len(data.dev), "test:", len(data.test))
     return data
 
-def learn_ngram(data,n, k,smoothing = 'add-k'):
+def learn_ngram(data,n, k,smoothing = 'add-k', verbose = False):
     """Learns a bigram model from data.train.
 
     It also evaluates the model on data.dev and data.test, along with generating
@@ -111,15 +111,16 @@ def learn_ngram(data,n, k,smoothing = 'add-k'):
     """
     ngram = Ngram(n,k=k, smoothing = smoothing)
     ngram.fit_corpus(data.train)
-    # print("vocab:", len(ngram.vocab()))
-    # # evaluate on train, test, and dev
-    # print("train:", ngram.perplexity(data.train))
-    # print("dev  :", ngram.perplexity(data.dev))
-    # print("test :", ngram.perplexity(data.test))
-    # from generator import Sampler
-    # sampler = Sampler(ngram)
-    # for _ in range(2):
-    #     print("sample: ", " ".join(str(x) for x in sampler.sample_sentence([], max_length=20)))
+    if verbose:
+        print("vocab:", len(ngram.vocab()))
+        # evaluate on train, test, and dev
+        print("train:", ngram.perplexity(data.train))
+        print("dev  :", ngram.perplexity(data.dev))
+        print("test :", ngram.perplexity(data.test))
+        from generator import Sampler
+        sampler = Sampler(ngram)
+        for _ in range(2):
+            print("sample: ", " ".join(str(x) for x in sampler.sample_sentence([], max_length=20)))
     return ngram
 
 def learn_unigram(data):
@@ -194,7 +195,7 @@ if __name__ == "__main__":
         data = read_texts("data/corpora.tar.gz", dname)
         datas.append(data)
         # model = learn_ngram(data,2)
-        model = learn_ngram(data,5,k = None, smoothing = 'backoff')
+        model = learn_ngram(data,2,k = None, smoothing = 'backoff', verbose = True)
         models.append(model)
 
     # # Learn the models for each of the domains, and evaluate it

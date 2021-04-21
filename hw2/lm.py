@@ -295,7 +295,7 @@ class Ngram(LangModel):
         else:
             return self.backoff_cond_logprob(word, previous)
 
-    def backoff_cond_logprob(self, word,previous):
+    def backoff_cond_logprob(self, word,previous, lmbda = 0.4):
         """Backoff conditional probabilities
 
         :word: TODO
@@ -305,12 +305,14 @@ class Ngram(LangModel):
         """
         n = self.n
         prob_model = self.prob_model
+        mult = 1
 
         #Try ngrams
         while (n >1):
             if (previous in prob_model) and (word in prob_model[previous]):
-                return np.log2(prob_model[previous][word])
+                return np.log2(mult*prob_model[previous][word])
             else:
+                mult *= lmbda
                 n -=1
                 previous = previous[1:]
                 prob_model = self.backoff_prob_models[n]
@@ -319,7 +321,7 @@ class Ngram(LangModel):
 
         #Try unigrams
         if word in unigrams:
-            return np.log2(unigrams[word])
+            return np.log2(mult*unigrams[word])
 
         #Return lunk prob
         return self.lunk_prob
