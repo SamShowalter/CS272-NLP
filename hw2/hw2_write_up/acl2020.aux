@@ -16,21 +16,41 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{brants2007large}
 \citation{chen1999empirical}
-\newlabel{table:hyperparameter}{{1}{1}{Hyperparameter tuning results. Dev-set perplexity across all three corpuses with different smoothing. add-k and backoff (b-off) running optimal k=0.01 and n=2 for ngram models\relax }{table.caption.3}{}}
+\citation{jelinek1980interpolated}
 \newlabel{sec:experimental_setup}{{2}{1}{Experimental Setup}{section.2}{}}
-\newlabel{sec:hyperparam_tuning}{{3}{1}{Hyperparameter Tuning}{section.3}{}}
-\newlabel{sec:in_domain_text_analysis_empirical}{{3.1}{1}{In-Domain Text Analysis: Empirical}{subsection.3.1}{}}
-\newlabel{sec:out_domain_text_analysis_empirical}{{3.2}{1}{Out-of-Domain Text Analysis: Empirical}{subsection.3.2}{}}
-\newlabel{table:backoff_test_perp}{{2}{1}{Test set perpexlity for each language model with stupid backoff smoothing applied. Each model is applied to every corpus.\relax }{table.caption.4}{}}
-\newlabel{sub:out_domain_text_analysis_qualitative}{{3.3}{1}{Qualitative Analysis: Language and Generation Scoring}{subsection.3.3}{}}
-\newlabel{table:sentence_scoring}{{3}{1}{Perplexity scoring of sentences ( backoff \ unigram ) indexed in appendix \ref {table:sentence_reference} with best backoff smoothing language model. Columns represent the language model that created the perplexity score. Superscores represent generating model, if not human.\relax }{table.caption.5}{}}
+\citation{katz1987estimation}
+\citation{kneser1995improved}
+\citation{mackay1995hierarchical}
+\citation{brants2007large}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:imgs/smooth_all}{{1}{2}{Train and dev-set perplexity for bi- and tri-gram language models with vary k in add-k smoothing. A k=1 represents Laplacian smoothing while dropping k represents weakening the Dirichlet prior based on the data. Referenced is dev-set perplexity for unigram models.\relax }{figure.caption.1}{}}
-\newlabel{fig:backoff}{{2}{2}{Dev-set perplexity across corpuses with stupid backoff smoothing implemented with $\lambda =0.4$ and varing number of context sizes (n-gram length). Referenced is current best performance from add-k smoothing (dotted).\relax }{figure.caption.2}{}}
+\newlabel{sec:hyperparam_tuning}{{3}{2}{Hyperparameter Tuning}{section.3}{}}
+\newlabel{sec:in_domain_text_analysis_empirical}{{3.1}{2}{In-Domain Text Analysis: Empirical}{subsection.3.1}{}}
+\citation{ponte1998language}
+\newlabel{fig:backoff}{{2}{4}{Dev-set perplexity across corpuses with stupid backoff smoothing implemented with $\lambda =0.4$ and varing number of context sizes (n-gram length). Referenced is current best performance from add-k smoothing (dotted).\relax }{figure.caption.2}{}}
+\newlabel{sec:out_domain_text_analysis_empirical}{{3.2}{4}{Out-of-Domain Text Analysis: Empirical}{subsection.3.2}{}}
+\newlabel{table:hyperparameter}{{1}{4}{Hyperparameter tuning results. Train and dev-set perplexity across all three corpuses with different smoothing. add-k and backoff (b-off) running optimal k=0.01 and n=2 for ngram models\relax }{table.caption.3}{}}
+\newlabel{table:backoff_test_perp}{{2}{4}{Test set perpexlity for each language model with stupid backoff smoothing applied. Each model is applied to every corpus.\relax }{table.caption.4}{}}
+\newlabel{sub:out_domain_text_analysis_qualitative}{{3.3}{4}{Qualitative Analysis: Language Scoring}{subsection.3.3}{}}
+\newlabel{table:sentence_scoring}{{3}{5}{Perplexity scoring of sentences (bigram / unigram) (indexed in appendix \ref {table:sentence_reference}) by backoff language models. Columns represent the domain of the model used for scoring. Superscripts denote the domain of the model that generated the sentence, if not human.\relax }{table.caption.5}{}}
+\newlabel{forecast_ex}{{3.3}{5}{Qualitative Analysis: Language Scoring}{table.caption.5}{}}
+\newlabel{hath_ex}{{3.3}{5}{Qualitative Analysis: Language Scoring}{table.caption.5}{}}
 \bibdata{custom}
-\bibcite{chen1999empirical}{{1}{1999}{{Chen and Goodman}}{{}}}
+\newlabel{subsec:language_gen}{{3.4}{6}{Qualitative Analysis: Text Generation}{subsection.3.4}{}}
+\newlabel{sec:disc_conclusion}{{4}{6}{Discussion and Conclusion}{section.4}{}}
+\bibcite{brants2007large}{{1}{2007}{{Brants et~al.}}{{Brants, Popat, Xu, Och, and Dean}}}
+\bibcite{chen1999empirical}{{2}{1999}{{Chen and Goodman}}{{}}}
+\bibcite{jelinek1980interpolated}{{3}{1980}{{Jelinek}}{{}}}
+\bibcite{katz1987estimation}{{4}{1987}{{Katz}}{{}}}
+\bibcite{kneser1995improved}{{5}{1995}{{Kneser and Ney}}{{}}}
+\bibcite{mackay1995hierarchical}{{6}{1995}{{MacKay and Peto}}{{}}}
+\bibcite{ponte1998language}{{7}{1998}{{Ponte and Croft}}{{}}}
 \bibstyle{acl_natbib}
-\newlabel{sec:conclusion}{{4}{3}{Conclusion}{section.4}{}}
-\newlabel{sec:sentence_ref}{{A}{3}{Sentence Reference}{appendix.A}{}}
-\newlabel{table:sentence_reference}{{A}{3}{Sentence Reference}{appendix.A}{}}
+\newlabel{appendix}{{5}{7}{Statement of Collaboration}{section*.6}{}}
+\newlabel{sec:sentence_ref}{{A}{7}{Sentence Reference}{appendix.A}{}}
+\newlabel{table:sentence_reference}{{A}{7}{Sentence Reference}{appendix.A}{}}
+\newlabel{sec:unigram_generated_sentences}{{B}{7}{Unigram Generated Sentences}{appendix.B}{}}
+\newlabel{forecast_ex_unigram}{{B}{7}{Unigram Generated Sentences}{appendix.B}{}}
+\newlabel{hath_ex_unigram}{{B}{7}{Unigram Generated Sentences}{appendix.B}{}}
