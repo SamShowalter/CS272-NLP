@@ -354,3 +354,5 @@ class Ngram(LangModel):
     # required, the list of words the language model suports (including EOS)
     def vocab(self):
         return self.vocabulary
+
+

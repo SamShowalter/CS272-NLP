@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex acl2020"] 1619288558 "acl2020.aux" "acl2020.bbl" "acl2020" 1619289381
+["bibtex acl2020"] 1619390496 "acl2020.aux" "acl2020.bbl" "acl2020" 1619390870
   "./acl_natbib.bst" 1617612260 47585 c671f071a8f3957857acb307a7173505 ""
-  "acl2020.aux" 1619289381 4198 2272abfb4d7026141a8708629e53406c "pdflatex"
+  "acl2020.aux" 1619390870 4225 711f021d62cbcb726f38a25ab0dbb3fd "pdflatex"
   "custom.bib" 1619132562 1945 f84485be70ab2abd98fd6256dd6f1ca4 ""
   (generated)
   "acl2020.bbl"
   "acl2020.blg"
-["pdflatex"] 1619289380 "acl2020.tex" "acl2020.pdf" "acl2020" 1619289381
+["pdflatex"] 1619390869 "acl2020.tex" "acl2020.pdf" "acl2020" 1619390870
   "/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm" 1136768653 960 4ab65358b8406f30ef5496c8c096d22b ""
@@ -99,15 +99,15 @@
   "/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1557342064 3277517 23507ed665b4dd9046f0f2a94bbef2be ""
   "/usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1557342086 4259635 562fc36ec496993777a6c428d8bfb811 ""
   "/usr/local/texlive/2019/texmf.cnf" 1557341546 577 d150fef99ac436ad1156e86b0892f6ef ""
-  "acl2020.aux" 1619289381 4198 2272abfb4d7026141a8708629e53406c "pdflatex"
-  "acl2020.bbl" 1619288559 1910 0b5215aba297acab8b3697f4bb176745 "bibtex acl2020"
-  "acl2020.out" 1619289380 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "acl2020.aux" 1619390870 4225 711f021d62cbcb726f38a25ab0dbb3fd "pdflatex"
+  "acl2020.bbl" 1619390496 1910 0b5215aba297acab8b3697f4bb176745 "bibtex acl2020"
+  "acl2020.out" 1619390869 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   "acl2020.sty" 1617731600 22040 0ceec98c5945ceb9f26bb90e376d2327 ""
-  "acl2020.tex" 1619289380 30201 cf0015bf147da11fa9b425e994f35941 ""
+  "acl2020.tex" 1619390867 29631 1e89d22957a389df2b9952de859834ee ""
   "imgs/backoff.png" 1619036248 96609 8106dd233b0126cc051b7de99ae8ad37 ""
   "imgs/smooth_all.png" 1619036269 131929 97e8db1c4b3b29a9d7ece7122f1b39fd ""
   (generated)
-  "acl2020.out"
-  "acl2020.aux"
   "acl2020.log"
   "acl2020.pdf"
+  "acl2020.out"
+  "acl2020.aux"
