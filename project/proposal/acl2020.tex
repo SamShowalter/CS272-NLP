@@ -1,0 +1,81 @@
+
+% File acl2020.tex
+%
+%% Based on the style files for ACL 2020, which were
+%% Based on the style files for ACL 2018, NAACL 2018/19, which were
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{acl2020}
+\usepackage{times}
+\usepackage{latexsym}
+\renewcommand{\UrlFont}{\ttfamily\small}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+\aclfinalcopy % Uncomment this line for the final submission
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B\textsc{ib}\TeX}
+
+\title{CS272 Project Pitch: Humanitarian-Centric Multi-label Topic Classification from Twitter Crisis Data\\
+Team: \texttt{NLTweetRelief}}
+
+\author{Sam Showalter \\
+  UC, Irvine \\  
+\texttt{showalte@uci.edu} \And
+Edgar Robles \\
+  UC, Irvine \\  
+\texttt{roblesee@uci.edu}\And
+Preethi Seshadri \\
+  UC, Irvine \\  
+\texttt{preethis@uci.edu}}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\section{Project Overview}
+
+\subsection{Problem Setup}
+
+Swift and comprehensive response to disaster situations is crucial for maintaining safety in society. However, it can be difficult to quickly understand the full extent of a disaster, as severity may not immediately be known. With the proliferation of social media giving everyone unfettered access to the internet, disasters are often first reported on Twitter and other social, mobile-based platforms. Improvements in deep learning have enabled scientists to track, tag, and categorize Tweets such that disaster response may be swift. In particular, connecting social media information about disasters to humanitarian causes (loss of life, injury, caution, etc.) is an ongoing body of research. However, with existing datasets few researchers have framed the problem as a multilabel classification, assuming one semantic context per tweet or message. In social media platforms without character limits (Facebook, Instagram, etc.), it is both possible and likely that messages about a crisis may span multiple topics. Models that can tag text with several labels, as well as localize the information relevant to that tag, are indispensable for organizing information about a crisis for later dissemination.
+
+Multilabel classification has been done before~\cite{schulz2014}, however, it was done using TF-IDF vectors with a neural network. Multiple unsupervised information extraction from crisis twitter data has also been done before, to rank the importance of tweets~\cite{interdonato2018}. Multiple methods to decide whether tweets during crisis are relevant or not exist~\cite{kruspe2020}, as well as methods to map crises using twitter's geolocation data~\cite{middleton2014} as well as methods to create reports from these datasets~\cite{corso2017}.
+
+\subsection{Proposed Approach}
+On April 8, 2021, \texttt{HumAID} \cite{humaid2020} - the largest collection of \href{https://crisisnlp.qcri.org/humaid_dataset}{disaster related tweets} - compiled and annotated for a variety of humanitarian sub-incidents (loss of life, injury, property damage, etc.), was released. We feel this presents an unique opportunity to develop a multilabel NLP system that can also extract text relevant to each detected tag. Since each tweet in our dataset is aligned with a single humanitarian label, we would define a data augmentation approach protocol samples are sets of tweets (1 to k) with corresponding labels indicating the category and the text associated with it. After training this data on all disasters up to 2017, we would evaluate the system on messages from disasters occurring from 2018 onward. We will likely make use of a transformer-based model trained on general text and may also embed the original tweets using a crisis-specific embedding model \cite{nguyen2017robust}.
+
+\subsection{Evaluation Plan}
+For the traditional classification performance on the multilabel objective, a log-loss or cross entropy can be utilized to extract how well the model generalizes in its multilabel objective. In addition, a word error rate across the extracted messages will determine how precise and complete the textual extractions were for each label.
+
+\subsection{Computational Requirements}
+Our datasets will likely fit in 10GB of RAM during experimentation and we will probably leverage GPU support via one of the ICS Computing servers available to us. Storage space for our solutions will represent less than 2 GB.
+
+
+
+\bibliography{acl2020}
+\bibliographystyle{acl_natbib}
+
+\appendix
+
+\end{document}% File acl2020.tex
+

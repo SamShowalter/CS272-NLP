@@ -1,0 +1,11 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Bender and Koller(2020)}]{bender2020climbing}
+Emily~M Bender and Alexander Koller. 2020.
+\newblock Climbing towards nlu: On meaning, form, and understanding in the age
+  of data.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association
+  for Computational Linguistics}, pages 5185--5198.
+
+\end{thebibliography}

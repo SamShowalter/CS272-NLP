@@ -1,0 +1,110 @@
+
+% ==============================================
+% Ready to be turned in - edited 4.30
+% ==============================================
+
+
+% File acl2020.tex
+%
+%% Based on the style files for ACL 2020, which were
+%% Based on the style files for ACL 2018, NAACL 2018/19, which were
+%% Based on the style files for ACL-2015, with some improvements
+%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{acl2020}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{booktabs}
+\renewcommand{\UrlFont}{\ttfamily\small}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+\aclfinalcopy % Uncomment this line for the final submission
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B\textsc{ib}\TeX}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Summary 1: Climbing Towards NLU}
+
+\author{Sam Showalter \\
+  University of California, Irvine \ (showalte) \\  
+\texttt{showalte@uci.edu}} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Content Summary}
+\vspace{-1pt}
+\label{sec:content_summary}
+
+This is a review of a position paper by \cite{bender2020climbing} arguing 
+that no language model can learn meaning if it has been trained 
+solely on linguistic form alone. The authors define meaning as
+an encoding of intent (separate from language) using an expression, while form is
+"any observable realization of language." The authors feel
+this contribution is important because they believe these two terms and their relationship
+to \textbf{understanding} are conflated; some researchers declare state-of-the-art (SOTA)
+language models (LM) \textit{understand} language, something the authors feel is an 
+overstatement that clouds true progress towards Natural Language Understanding (NLU).
+
+
+The core of the author's contribution is the notion that language provides a medium of expression
+by which one can communicate intent. This intent is not separate from language; the listener 
+must infer intent from the meaning they extract from messages by grounding it in their contextual situation 
+and world-view. According to the authors, LMs that haven't received perceptual information can't tie meaning to patterns they find in linguistic form, no matter how sophisticated. In some fields, this is known as the "Clever Hans" effect. The authors spin their own version of this with a hypothetical Octopus that knows no meaning but communicates purely using language patterns it observes.They follow this with truncated examples of LM objectives, including teaching a model to code in Java by exposing it to all of Github. They explain this is fundamentally impossible, as even human children do not learn language passively but by interacting with the world. Empirically
+they also cite studies where language form is perturbed in LM learning,
+causing performance for SOTA models like BERT to drop substantially. 
+
+The authors close by noting that some applications, like reading comprehension, may learn meaning, though not necessarily. They also preemptively refute counterarguments, by stating that even
+if some meaning is learned by these models, it is incomplete for full understanding. They feel their paper ensures that the field of NLP is "climbing the right hill" towards the goal of NLU.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results and Discussion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{-2pt}
+\section{Analysis}%
+\label{sec:Analysis}
+
+This paper was well written from a language-theoretic perspective. The authors, provocative in their position, were scrupulous in defending their claims. The flow of the paper was smooth, transitioning well through sections and culminating well in their final thoughts. One possible improvement would be to reduce some thought experiment content and replace it with additional concrete studies that support their claims. That would have made this more convincing for me.
+
+Their topic, NLU, is certainly an important and fundamental goal in NLP. I think their claim that many researchers are "bottom-up" in their thinking about progress is correct; a position paper such as theirs can have high impact for that reason. While their contributions are theoretical and, to some extent, speculative, I believe it is certainly a novel stance. Regardless of their ultimate veracity, more researchers should approach NLU with a top-down mindset and LM capability is over-hyped.
+
+Because this is a position paper, there is no evaluation of their methods beyond their own justification of their work. While compelling, I think the authors left a logical gray area in their supporting evidence and refutation. They cede that some applications \textit{may} learn "something about meaning," that is incomplete in their closing arguments, which contradicts their original statement that there is "no way" this could happen. Their ideas, while stimulating, are perhaps not rigorous enough to stand up to all applications of language modeling - I think a discussion of edge cases of their claims would be beneficial.
+
+In addition, a few ablations empirically aligned with the Octopus thought experiment would have led to a 
+stronger paper. If LMs are fundamentally devoid of meaning, it should be simple to explicitly display examples where a lack of grounding causes a SOTA model to fail.
+\vspace{-10pt}
+\bibliography{custom}
+\bibliographystyle{acl_natbib}
+
+
+
+\end{document}% File acl2020.tex
+

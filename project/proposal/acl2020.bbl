@@ -1,0 +1,55 @@
+\begin{thebibliography}{7}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{{Di Corso} et~al.(2017){Di Corso}, {Ventura}, and
+  {Cerquitelli}}]{corso2017}
+E.~{Di Corso}, F.~{Ventura}, and T.~{Cerquitelli}. 2017.
+\newblock \href {https://doi.org/10.1109/BigData.2017.8258369} {All in a
+  twitter: Self-tuning strategies for a deeper understanding of a crisis tweet
+  collection}.
+\newblock In \emph{2017 IEEE International Conference on Big Data (Big Data)},
+  pages 3722--3726.
+
+\bibitem[{Imran and Ofli(2021)}]{humaid2020}
+Firoj Alam Umair Qazi~Muhammad Imran and Ferda Ofli. 2021.
+\newblock Humaid: Human-annotated disaster incidents data from twitter.
+\newblock In \emph{15th International Conference on Web and Social Media
+  (ICWSM)}.
+
+\bibitem[{{Interdonato} et~al.(2018){Interdonato}, {Doucet}, and
+  {Guillaume}}]{interdonato2018}
+R.~{Interdonato}, A.~{Doucet}, and J.~{Guillaume}. 2018.
+\newblock \href {https://doi.org/10.1109/ASONAM.2018.8508261} {Unsupervised
+  crisis information extraction from twitter data}.
+\newblock In \emph{2018 IEEE/ACM International Conference on Advances in Social
+  Networks Analysis and Mining (ASONAM)}, pages 579--580.
+
+\bibitem[{Kruspe et~al.(2020)Kruspe, Kersten, and Klan}]{kruspe2020}
+A.~Kruspe, J.~Kersten, and F.~Klan. 2020.
+\newblock \href {https://doi.org/10.5194/nhess-2020-214} {Review article:
+  Detection of informative tweets in crisis events}.
+\newblock \emph{Natural Hazards and Earth System Sciences Discussions},
+  2020:1--18.
+
+\bibitem[{{Middleton} et~al.(2014){Middleton}, {Middleton}, and
+  {Modafferi}}]{middleton2014}
+S.~E. {Middleton}, L.~{Middleton}, and S.~{Modafferi}. 2014.
+\newblock \href {https://doi.org/10.1109/MIS.2013.126} {Real-time crisis
+  mapping of natural disasters using social media}.
+\newblock \emph{IEEE Intelligent Systems}, 29(2):9--17.
+
+\bibitem[{Nguyen et~al.(2017)Nguyen, Al~Mannai, Joty, Sajjad, Imran, and
+  Mitra}]{nguyen2017robust}
+Dat Nguyen, Kamela~Ali Al~Mannai, Shafiq Joty, Hassan Sajjad, Muhammad Imran,
+  and Prasenjit Mitra. 2017.
+\newblock Robust classification of crisis-related data on social networks using
+  convolutional neural networks.
+\newblock In \emph{Proceedings of the International AAAI Conference on Web and
+  Social Media}, volume~11.
+
+\bibitem[{Schulz et~al.(2014)Schulz, Mencía, Dang, and Schmidt}]{schulz2014}
+A.~Schulz, E.L. Mencía, T.T. Dang, and B.~Schmidt. 2014.
+\newblock Evaluating multi-label classification of incident-related tweets.
+\newblock 1141:26--33.
+
+\end{thebibliography}

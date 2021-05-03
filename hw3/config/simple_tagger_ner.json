@@ -46,10 +46,11 @@
       "input_dim": 100
     }
   },
-  "iterator": {
-    "type": "basic",
+  "data_loader": {
+    "type": "simple",
     "batch_size": 32
   },
+  // "data_loader": {},
   "trainer": {
     "optimizer": "adam",
     "num_epochs": 40,

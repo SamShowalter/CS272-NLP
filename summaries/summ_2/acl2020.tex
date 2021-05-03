@@ -1,0 +1,96 @@
+
+% ==================================================
+% Ready to turn in - edited 4.29
+% ==================================================
+
+
+% File acl2020.tex
+%
+%% Based on the style files for ACL 2020, which were
+%% Based on the style files for ACL 2018, NAACL 2018/19, which were
+%% Based on the style files for ACL-2015, with some improvements
+%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{acl2020}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{booktabs}
+\renewcommand{\UrlFont}{\ttfamily\small}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+\aclfinalcopy % Uncomment this line for the final submission
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B\textsc{ib}\TeX}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Summary 2: You Are Grounded!}
+
+\author{Sam Showalter \\
+  University of California, Irvine \ (showalte) \\  
+\texttt{showalte@uci.edu}} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Content Summary}
+\label{sec:content_summary}
+
+This is a paper summary of \cite{shwartz2020you} that explores the biases of pretrained language models (LMs) on named entities. In particular, it focuses on the representation of given names (generic) that may be strongly associated with sentiment tied to specific entities. The authors demonstrate that this conflation of generic and specific entities in language grounding can be detrimental to model output, performance, and bias.
+
+The central argument of LM bias the authors explore is that while LMs have transformed NLP, they also conflate generic facts with grounded knowledge of specific entities or situations. This behavior is undesired and can lead to biased or stereotypical language. First, the authors explore the prediction of last name for a provided given name, and disover that with high probability the result is a known entity often mentioned on the web or news. Politicians were particularly susceptible and connoted negatively, as found by sentiment analysis.
+
+Moreover, when given question-anwser objectives where two named entities are mentioned, pretrained LMs demonstrated acute sensitivity when the order of these names was swapped. In some cases, performance dropped substantially. Another ablation found that, in the event of a name flip, the prediction of many models changed. The authors state this is of large concern, given how many downstream tasks LMs are used for. They note several additional studies that discover word embeddings from pretrained models encode bias that can then be perpetuated.
+
+In a discussion of these findings of bias and named entity sensitivity, the authors claim that since people "rarely state the obvious," the frequency of uncommon events in language is disproportionally present. Similarly, generic terms with the same name as a specific "newsworthy" entity also tend to be charged with sentiment. In closing, the authors qualify that their findings are restricted to English, their names were somewhat male-skewed, as well as other caveats. Nonetheless, they feel the consequence of their work is that generic entities are not anonymous or without connotation, which has ethical consequences.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results and Discussion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analysis}%
+\vspace{-1pt}
+\label{sec:Analysis}
+
+The authors did an excellent job of communicating their ideas clearly and effectively. Their motivation and its relation to existing work was clear, and their experiments were well defined and reported. Sections were organized methodically, moving from motivation to experiments and finally a discussion of their findings and theoretical implications. I particularly enjoyed their section on the limitations of their work, and wish other authors more commonly qualified their findings so thoroughly
+
+One criticism I had of this paper was that its experiments seemed less comprehensive than their claims. However, they address exactly this point in their closing arguments, making their paper very well qualified and their findings interpreted correctly. The exploration of bias in LMs is fundamental to maintaining equality today, with these systems impacting the lives of thousands on a daily basis (CV checkers, spam filters, etc.). It appears there is a strong interest in this field already, and the authors contextualize their research within a larger body of work.
+
+Though well-defined and convincing, I would consider the findings in this paper to be incremental and in-need of further exploration. Based on the closing sections, the authors themselves appear to agree. While the findings were convincing, the experiments were relatively simple and, for skeptics, fairly easy to discredit given their limited scope. However, their message that generic entities are influenced by named counterparts is an incredibly insightful finding. More should be done to tease out the full extent of this relationship.
+
+Some potential future experiments could include probing other entities beyond given name to tease out the interaction of named entities on other part of speech. Moreover, an analysis of how these trends are effected by the corpus used to pre-train LMs would be particularly insightful. One approach could be to adversarially simulate such a dataset, then infer from those findings the extent of the problem in real-world corpi.
+\vspace{-10pt}
+\bibliography{custom}
+\bibliographystyle{acl_natbib}
+
+
+
+\end{document}% File acl2020.tex
+

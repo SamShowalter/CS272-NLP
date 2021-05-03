@@ -1,0 +1,131 @@
+
+% ============================================================
+% Just need to add paper citation, then you should be done :)
+% ============================================================
+
+
+% File acl2020.tex
+%
+%% Based on the style files for ACL 2020, which were
+%% Based on the style files for ACL 2018, NAACL 2018/19, which were
+%% Based on the style files for ACL-2015, with some improvements
+%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{acl2020}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{booktabs}
+\renewcommand{\UrlFont}{\ttfamily\small}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+\aclfinalcopy % Uncomment this line for the final submission
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B\textsc{ib}\TeX}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Summary 3: Improving Language Models with \texttt{CheckList} }
+
+\author{Sam Showalter \\
+  University of California, Irvine \ (showalte) \\  
+\texttt{showalte@uci.edu}} 
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Content Summary}
+\label{sec:content_summary}
+This is a reivew of \cite{checklist:acl20} which discusses a novel method of 
+evaluating NLP models that provides a more granular review of their capabilities. The system,
+called \texttt{CheckList}, takes inspiration from behavioral testing frameworks common in 
+software engineering. The authors feel that held-out test set
+accuracy is insufficient to evaluate LMs. Given the complexity of these systems and the set of
+capabilities the model needs to be holistically performant, \texttt{CheckList} appeared to be a
+logical and necessary extension.
+
+\texttt{CheckList} is defined in terms of a matrix, where rows specify capabilities and columns, 
+test types. In general, it is intended as an easy-to-use yet powerful software development tool to 
+generate and evaluate series of \textit{behavioral} tests. Many LMs, despite SOTA performance, have been
+noted to fail on elementary language and bias tests. This leads to two implications:
+First, LMs may find shortcuts to achieve performance instead of learning general heuristics.
+Second, even in well-tuned models, evaluation is lacking, leading to unnoticed bugs and biases.
+
+To show \texttt{CheckList} is a general tool, the authors evaluate several NLP tasks including reading 
+comprehension and sentiment analysis. They discover that even models with superhuman performance possess (sometimes 
+egregious) failures in language understanding.
+To verify that \texttt{CheckList} is a generally useful tool, they worked with Microsoft's sentiment analysis system
+and team, where several bugs were found and developers stated \texttt{CheckList} valuable. In another survey, those with
+little experience were able to leverage \texttt{CheckList} to find more bugs and generate more test cases in 
+SOTA NLP models, in part because of its templated, cloze-style test cases.
+
+The authors close by noting that \texttt{CheckList} does not serve to replace the many additional robustness and capability
+tests for LMs, but complement them. They feel the tool effectively centralizes the evaluation of LMs holistically and 
+facilitates better debugging as well as more granular model evaluation and comparison.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Results and Discussion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analysis}%
+\label{sec:Analysis}
+
+This is one of the most exciting and compelling papers I have read in NLP. The authors are very clear about
+their research motivation as well as the intended application of their solution. Moreover, they conducted
+case studies where professionals utilize \texttt{CheckList}, something I have seen few authors do with their 
+implementations. Their sections flowed smoothly and their proposal has been demonstrated to be easy to use 
+as well as valuable for professionals and relative amateurs alike.
+
+The contribution of \texttt{CheckList} fills a notable gap in NLP evaluation. In the last decade the capabilities of
+LMs have improved rapidly, leaving a strong need for equally granular evaluation. What's more, \texttt{CheckList} 
+goes further to facilitate a smooth transition from evaluation to bug detection and patching. In turn, I see their contribution as an
+incremental insight, but a novel contribution in the form of their software solution.
+Empirically, the baseline results on bug findings in SOTA models were compelling. The automatic generation
+of test cases suppresses the risk of cherry-picked examples, though perhaps the impact of the lexicon-generating model (RoBERTa)
+should be taken into account. Qualitatively, a larger sample 
+for the amateur case study would have been ideal.
+
+However, my biggest criticism of this implementation is that the author's did not speak at length 
+about the limitations of their solution. As with any software tool, there are fundamental limitations to what it 
+can do. I imagine \texttt{CheckList} is no different, and there are probably a family of behaviors which
+it cannot evaluate well. Similarly, \texttt{CheckList} is also limited by the manner in which its test cases are generated. The 
+authors demonstrated a preference for templated and generated solutions, but did not qualify what impact this practice may have on
+overall evaluation results. Robustness tests on \texttt{CheckList} by varying test-case generation methods/models
+seems like a promising area of future work. This can be done easily, because the authors provided easily understandable code for
+\texttt{CheckList} on Github.
+
+
+\bibliography{custom}
+\bibliographystyle{acl_natbib}
+
+
+
+\end{document}% File acl2020.tex
+

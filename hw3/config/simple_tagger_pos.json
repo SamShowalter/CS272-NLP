@@ -46,8 +46,9 @@
       "input_dim": 100
     }
   },
-  "iterator": {
-    "type": "basic",
+  "data_loader": {
+    "type": "simple",
+    "shuffle": true,
     "batch_size": 32
   },
   "trainer": {
