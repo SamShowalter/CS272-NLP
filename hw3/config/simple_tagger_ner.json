@@ -48,6 +48,7 @@
   },
   "data_loader": {
     "type": "simple",
+    "shuffle": true,
     "batch_size": 32
   },
   // "data_loader": {},
@@ -55,6 +56,6 @@
     "optimizer": "adam",
     "num_epochs": 40,
     "patience": 10,
-    "cuda_device": -1
+    "cuda_device": 2
   }
 }

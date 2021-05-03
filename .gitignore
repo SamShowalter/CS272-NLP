@@ -94,3 +94,4 @@ ENV/
 # Files with lots of information
 data/
 models/
+model/
