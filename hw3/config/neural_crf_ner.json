@@ -43,24 +43,24 @@
       "type": "pass_through",
       "input_dim": 130
     },
-    "regularizer": [
-      [
-        "transitions$",
-        {
-          "type": "l2",
-          "alpha": 0.01
-        }
-      ]
-    ]
+  #  "regularizer": [
+  #    [
+  #      "transitions$",
+  #      {
+  #        "type": "l2",
+  #        "alpha": 0.01
+  #      }
+  #    ]
+  #  ]
   },
-  "iterator": {
-    "type": "basic",
+  "data_loader": {
+    "type": "simple",
     "batch_size": 32
   },
   "trainer": {
     "optimizer": "adam",
     "num_epochs": 50,
     "patience": 10,
-    "cuda_device": -1
+    "cuda_device": 2
   }
 }

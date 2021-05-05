@@ -46,14 +46,15 @@
     "validation_data_path": "./data/twitter_dev.ner",
     "test_data_path": "./data/twitter_dev.ner",
     "trainer": {
-        "cuda_device": -1,
+        "cuda_device": 2,
         "num_epochs": 40,
         "optimizer": "adam",
         "patience": 10
     },
     "data_loader": {
         "type": "simple",
-        "batch_size": 32
+        "batch_size": 32,
+        "shuffle": true
     },
     "evaluate_on_test": true
 }

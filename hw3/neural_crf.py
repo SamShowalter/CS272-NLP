@@ -448,7 +448,7 @@ class NeuralCrf(Model):
             class_probabilities = logits * 0.
             for i, instance_tags in enumerate(predicted_tags):
                 for j, tag_id in enumerate(instance_tags):
-                    class_probabilities[i, j, tag_id] = 1
+                    class_probabilities[i, j, int( tag_id )] = 1
 
             for metric in self.metrics.values():
                 metric(class_probabilities, tags, mask.float())
@@ -458,7 +458,7 @@ class NeuralCrf(Model):
             output["words"] = [x["words"] for x in metadata]
         return output
 
-    @overrides
+    # @overrides
     def decode(self, output_dict: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
         """
         Converts the tag ids to the actual tags.

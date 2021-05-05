@@ -51,7 +51,6 @@
     "shuffle": true,
     "batch_size": 32
   },
-  // "data_loader": {},
   "trainer": {
     "optimizer": "adam",
     "num_epochs": 40,
