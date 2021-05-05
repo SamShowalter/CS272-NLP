@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex acl2020"] 1619808758 "acl2020.aux" "acl2020.bbl" "acl2020" 1619808789
+["bibtex acl2020"] 1620085709 "acl2020.aux" "acl2020.bbl" "acl2020" 1620085774
   "./acl_natbib.bst" 1619808752 47586 8122175fba393742e8fe5017359c3fc6 ""
-  "acl2020.aux" 1619808788 1509 66734e401069d7139aa722610b47d255 "pdflatex"
+  "acl2020.aux" 1620085773 1665 388534b8862f0c0abdafef98df44b523 "pdflatex"
   "acl2020.bib" 1619808726 2424 8358409c85efbd76dafd6e72568e31aa ""
   (generated)
   "acl2020.bbl"
   "acl2020.blg"
-["pdflatex"] 1619808788 "acl2020.tex" "acl2020.pdf" "acl2020" 1619808789
+["pdflatex"] 1620085773 "acl2020.tex" "acl2020.pdf" "acl2020" 1620085774
   "/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm" 1136768653 960 4ab65358b8406f30ef5496c8c096d22b ""
@@ -81,13 +81,13 @@
   "/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1557342064 3277517 23507ed665b4dd9046f0f2a94bbef2be ""
   "/usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1557342086 4259635 562fc36ec496993777a6c428d8bfb811 ""
   "/usr/local/texlive/2019/texmf.cnf" 1557341546 577 d150fef99ac436ad1156e86b0892f6ef ""
-  "acl2020.aux" 1619808788 1509 66734e401069d7139aa722610b47d255 "pdflatex"
-  "acl2020.bbl" 1619808758 2546 412e28bcb8a7947e8e9f8cfea262f2e8 "bibtex acl2020"
-  "acl2020.out" 1619808788 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "acl2020.aux" 1620085773 1665 388534b8862f0c0abdafef98df44b523 "pdflatex"
+  "acl2020.bbl" 1620085710 2546 412e28bcb8a7947e8e9f8cfea262f2e8 "bibtex acl2020"
+  "acl2020.out" 1620085773 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   "acl2020.sty" 1619807920 22041 c76016fec3e9cd500727f7e11bd35701 ""
-  "acl2020.tex" 1619808788 5242 786fa2e3d78660d1c72b131b8a1aa888 ""
+  "acl2020.tex" 1620085772 9649 e84a0558c50aeb70e1f10a132e3aa904 ""
   (generated)
-  "acl2020.out"
   "acl2020.pdf"
-  "acl2020.aux"
+  "acl2020.out"
   "acl2020.log"
+  "acl2020.aux"
