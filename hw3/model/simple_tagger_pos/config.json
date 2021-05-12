@@ -1,4 +1,37 @@
 {
+<<<<<<< HEAD
+    "random_seed": 42,
+    "train_dataset": {
+        "data_path": "data/twitter_train.pos",
+        "max_length": 30
+    },
+    "validation_dataset": {
+        "data_path": "data/twitter_dev.pos",
+        "max_length": 30
+    },
+    "model": {
+        "type": "simple_tagger.SimpleTagger",
+        "embeddings": {
+            "embedding_dim": 50
+        },
+        "encoder": {
+            "type": null
+        },
+        "tag_projection": {
+            "type": "torch.nn.Linear",
+            "in_features": 50,
+            "out_features": 13
+        }
+    },
+    "training": {
+        "batch_size": 32,
+        "num_epochs": 40,
+        "optimizer": {
+            "type": "torch.optim.Adam",
+            "lr": 0.001
+        }
+    }
+=======
     "dataset_reader": {
         "type": "conll2003",
         "tag_label": "pos",
@@ -57,4 +90,5 @@
         "shuffle": true
     },
     "evaluate_on_test": true
+>>>>>>> d836ce1692fa664e81db2dece590eb0f684bcec4
 }

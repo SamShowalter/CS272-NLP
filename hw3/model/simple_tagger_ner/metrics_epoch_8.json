@@ -1,4 +1,59 @@
 {
+<<<<<<< HEAD
+    "train_accuracy": 0.8953112368633791,
+    "train_accuracy_per_label": {
+        "B-company": 0.44776119402985076,
+        "B-facility": 0.02631578947368421,
+        "B-geo-loc": 0.09547738693467336,
+        "B-movie": 0.0,
+        "B-musicartist": 0.09523809523809523,
+        "B-other": 0.043209876543209874,
+        "B-person": 0.0943952802359882,
+        "B-product": 0.11538461538461539,
+        "B-sportsteam": 0.0,
+        "B-tvshow": 0.0,
+        "I-company": 0.0,
+        "I-facility": 0.013333333333333334,
+        "I-geo-loc": 0.08571428571428572,
+        "I-movie": 0.0,
+        "I-musicartist": 0.021739130434782608,
+        "I-other": 0.04184100418410042,
+        "I-person": 0.12418300653594772,
+        "I-product": 0.0,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.9402780318273276,
+        "<pad>": 0
+    },
+    "train_loss": 0.6555835008621216,
+    "validation_accuracy": 0.9252483010977522,
+    "validation_accuracy_per_label": {
+        "B-company": 0.25,
+        "B-facility": 0.0,
+        "B-geo-loc": 0.07792207792207792,
+        "B-movie": 0.0,
+        "B-musicartist": 0.0,
+        "B-other": 0.015873015873015872,
+        "B-person": 0.10185185185185185,
+        "B-product": 0.0,
+        "B-sportsteam": 0.0,
+        "B-tvshow": 0.0,
+        "I-company": 0.0,
+        "I-facility": 0.0,
+        "I-geo-loc": 0.07142857142857142,
+        "I-movie": 0.0,
+        "I-musicartist": 0.0,
+        "I-other": 0.012345679012345678,
+        "I-person": 0.09836065573770492,
+        "I-product": 0.0,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.974947038776826,
+        "<pad>": 0
+    },
+    "validation_loss": 0.5452636480331421,
+    "epoch_num": 8
+=======
   "best_epoch": 8,
   "peak_worker_0_memory_MB": 2454.97265625,
   "peak_gpu_0_memory_MB": 0,
@@ -17,4 +72,5 @@
   "best_validation_accuracy": 0.9480800901447517,
   "best_validation_accuracy3": 0.9679292710409986,
   "best_validation_loss": 0.36529088334033366
+>>>>>>> d836ce1692fa664e81db2dece590eb0f684bcec4
 }

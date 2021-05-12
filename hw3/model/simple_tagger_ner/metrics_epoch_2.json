@@ -1,4 +1,59 @@
 {
+<<<<<<< HEAD
+    "train_accuracy": 0.6981175655387458,
+    "train_accuracy_per_label": {
+        "B-company": 0.22388059701492538,
+        "B-facility": 0.05263157894736842,
+        "B-geo-loc": 0.020100502512562814,
+        "B-movie": 0.0,
+        "B-musicartist": 0.023809523809523808,
+        "B-other": 0.024691358024691357,
+        "B-person": 0.0058997050147492625,
+        "B-product": 0.0,
+        "B-sportsteam": 0.05,
+        "B-tvshow": 0.0,
+        "I-company": 0.0,
+        "I-facility": 0.013333333333333334,
+        "I-geo-loc": 0.0,
+        "I-movie": 0.02857142857142857,
+        "I-musicartist": 0.06521739130434782,
+        "I-other": 0.008368200836820083,
+        "I-person": 0.032679738562091505,
+        "I-product": 0.0,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.7353515029571368,
+        "<pad>": 0
+    },
+    "train_loss": 1.8978111743927002,
+    "validation_accuracy": 0.8216588255793692,
+    "validation_accuracy_per_label": {
+        "B-company": 0.25,
+        "B-facility": 0.07142857142857142,
+        "B-geo-loc": 0.012987012987012988,
+        "B-movie": 0.0,
+        "B-musicartist": 0.0,
+        "B-other": 0.0,
+        "B-person": 0.0,
+        "B-product": 0.0,
+        "B-sportsteam": 0.0,
+        "B-tvshow": 0.0,
+        "I-company": 0.0,
+        "I-facility": 0.0,
+        "I-geo-loc": 0.0,
+        "I-movie": 0.0,
+        "I-musicartist": 0.06666666666666667,
+        "I-other": 0.0,
+        "I-person": 0.0,
+        "I-product": 0.0,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.8674587823523994,
+        "<pad>": 0
+    },
+    "validation_loss": 1.5548207759857178,
+    "epoch_num": 2
+=======
   "best_epoch": 2,
   "peak_worker_0_memory_MB": 2454.87890625,
   "peak_gpu_0_memory_MB": 0,
@@ -17,4 +72,5 @@
   "best_validation_accuracy": 0.9469532807488948,
   "best_validation_accuracy3": 0.9634220334575713,
   "best_validation_loss": 0.6430710554122925
+>>>>>>> d836ce1692fa664e81db2dece590eb0f684bcec4
 }

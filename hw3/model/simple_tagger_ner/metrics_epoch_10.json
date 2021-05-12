@@ -1,4 +1,59 @@
 {
+<<<<<<< HEAD
+    "train_accuracy": 0.9096604688763137,
+    "train_accuracy_per_label": {
+        "B-company": 0.47761194029850745,
+        "B-facility": 0.02631578947368421,
+        "B-geo-loc": 0.1507537688442211,
+        "B-movie": 0.0,
+        "B-musicartist": 0.11904761904761904,
+        "B-other": 0.037037037037037035,
+        "B-person": 0.16519174041297935,
+        "B-product": 0.14102564102564102,
+        "B-sportsteam": 0.0,
+        "B-tvshow": 0.043478260869565216,
+        "I-company": 0.0,
+        "I-facility": 0.12,
+        "I-geo-loc": 0.08571428571428572,
+        "I-movie": 0.0,
+        "I-musicartist": 0.0,
+        "I-other": 0.05439330543933055,
+        "I-person": 0.23529411764705882,
+        "I-product": 0.0,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.9533260167062984,
+        "<pad>": 0
+    },
+    "train_loss": 0.5427370667457581,
+    "validation_accuracy": 0.9314340477435094,
+    "validation_accuracy_per_label": {
+        "B-company": 0.25,
+        "B-facility": 0.0,
+        "B-geo-loc": 0.09090909090909091,
+        "B-movie": 0.0,
+        "B-musicartist": 0.0,
+        "B-other": 0.015873015873015872,
+        "B-person": 0.14814814814814814,
+        "B-product": 0.05263157894736842,
+        "B-sportsteam": 0.0,
+        "B-tvshow": 0.0,
+        "I-company": 0.0,
+        "I-facility": 0.13793103448275862,
+        "I-geo-loc": 0.07142857142857142,
+        "I-movie": 0.0,
+        "I-musicartist": 0.0,
+        "I-other": 0.024691358024691357,
+        "I-person": 0.09836065573770492,
+        "I-product": 0.0,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.9803813208068527,
+        "<pad>": 0
+    },
+    "validation_loss": 0.47336632013320923,
+    "epoch_num": 10
+=======
   "best_epoch": 10,
   "peak_worker_0_memory_MB": 2454.984375,
   "peak_gpu_0_memory_MB": 0,
@@ -17,4 +72,5 @@
   "best_validation_accuracy": 0.949553610123949,
   "best_validation_accuracy3": 0.966369073415966,
   "best_validation_loss": 0.355885837423174
+>>>>>>> d836ce1692fa664e81db2dece590eb0f684bcec4
 }

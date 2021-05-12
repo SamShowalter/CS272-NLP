@@ -1,4 +1,59 @@
 {
+<<<<<<< HEAD
+    "train_accuracy": 0.9476556184316896,
+    "train_accuracy_per_label": {
+        "B-company": 0.6791044776119403,
+        "B-facility": 0.15789473684210525,
+        "B-geo-loc": 0.5025125628140703,
+        "B-movie": 0.0,
+        "B-musicartist": 0.2857142857142857,
+        "B-other": 0.12962962962962962,
+        "B-person": 0.5988200589970502,
+        "B-product": 0.32051282051282054,
+        "B-sportsteam": 0.025,
+        "B-tvshow": 0.08695652173913043,
+        "I-company": 0.0,
+        "I-facility": 0.22666666666666666,
+        "I-geo-loc": 0.05714285714285714,
+        "I-movie": 0.0,
+        "I-musicartist": 0.0,
+        "I-other": 0.07531380753138076,
+        "I-person": 0.42483660130718953,
+        "I-product": 0.03125,
+        "I-sportsteam": 0.05263157894736842,
+        "I-tvshow": 0.0,
+        "O": 0.983202243765624,
+        "<pad>": 0
+    },
+    "train_loss": 0.2974710464477539,
+    "validation_accuracy": 0.9444154033803799,
+    "validation_accuracy_per_label": {
+        "B-company": 0.3611111111111111,
+        "B-facility": 0.0,
+        "B-geo-loc": 0.16883116883116883,
+        "B-movie": 0.0,
+        "B-musicartist": 0.07692307692307693,
+        "B-other": 0.07936507936507936,
+        "B-person": 0.3055555555555556,
+        "B-product": 0.21052631578947367,
+        "B-sportsteam": 0.0,
+        "B-tvshow": 0.0,
+        "I-company": 0.0,
+        "I-facility": 0.13793103448275862,
+        "I-geo-loc": 0.0,
+        "I-movie": 0.0,
+        "I-musicartist": 0.0,
+        "I-other": 0.024691358024691357,
+        "I-person": 0.13114754098360656,
+        "I-product": 0.0,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.9907893524914801,
+        "<pad>": 0
+    },
+    "validation_loss": 0.34458523988723755,
+    "epoch_num": 19
+=======
   "best_epoch": 16,
   "peak_worker_0_memory_MB": 2458.50390625,
   "peak_gpu_0_memory_MB": 0,
@@ -17,4 +72,5 @@
   "best_validation_accuracy": 0.9518939065614977,
   "best_validation_accuracy3": 0.9674092051659877,
   "best_validation_loss": 0.34414128410188777
+>>>>>>> d836ce1692fa664e81db2dece590eb0f684bcec4
 }
