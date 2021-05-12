@@ -1,0 +1,39 @@
+{
+    "random_seed": 42,
+    "train_dataset": {
+        "data_path": "data/twitter_train.pos",
+        "max_length": 30
+    },
+    "validation_dataset": {
+        "data_path": "data/twitter_dev.pos",
+        "max_length": 30
+    },
+    "model": {
+        "type": "simple_tagger.SimpleTagger",
+        "embeddings": {
+            "embedding_dim": 50,
+            "embedding_path": "glove.6B.50d.txt"
+        },
+        "encoder": {
+            "type": "torch.nn.LSTM",
+            "input_size": 50,
+            "hidden_size": 25,
+            "num_layers": 2,
+            "dropout": 0.1,
+            "bidirectional": false
+        },
+        "tag_projection": {
+            "type": "torch.nn.Linear",
+            "in_features": 25,
+            "out_features": 13
+        }
+    },
+    "training": {
+        "batch_size": 64,
+        "num_epochs": 80,
+        "optimizer": {
+            "type": "torch.optim.Adam",
+            "lr": 0.001
+        }
+    }
+}
