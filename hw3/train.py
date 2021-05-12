@@ -1,5 +1,6 @@
 import argparse
 import copy
+import shutil
 import datetime
 import json
 import os
@@ -90,8 +91,10 @@ def main():
     torch.manual_seed(config['random_seed'])
 
     if os.path.isdir(serialization_dir):
-        sys.exit(f"{serialization_dir}, already exists. Please specify a new "
-                 f"serialization directory or erase the existing one.")
+        print("Erasing dir")
+        shutil.rmtree(serialization_dir)
+        # sys.exit(f"{serialization_dir}, already exists. Please specify a new "
+        #          f"serialization directory or erase the existing one.")
     else:
         os.makedirs(serialization_dir)
         with open(f'{serialization_dir}/config.json', 'w') as f:

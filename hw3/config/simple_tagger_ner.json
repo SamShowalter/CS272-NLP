@@ -14,13 +14,8 @@
       "embedding_dim": 50
     },
     "encoder": {
-<<<<<<< HEAD
         "type": null
         },
-=======
-      "type": null
-    },
->>>>>>> d836ce1692fa664e81db2dece590eb0f684bcec4
     "tag_projection": {
       "type": "torch.nn.Linear",
       "in_features": 50,
@@ -35,8 +30,4 @@
       "lr": 0.001
     }
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d836ce1692fa664e81db2dece590eb0f684bcec4
