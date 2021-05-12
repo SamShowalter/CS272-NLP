@@ -40,3 +40,4 @@ def run_metric_test():
 
 if __name__ == "__main__":
     run_metric_test()
+    print("\nPassed the test")

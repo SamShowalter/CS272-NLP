@@ -4,6 +4,7 @@ Class structure for `Metric()` is taken from the allennlp library.
 """
 
 import torch
+import numpy as np
 
 class Metric():
     """
@@ -144,12 +145,29 @@ class AccuracyPerLabel(Metric):
             mask = torch.ones(predictions.size())
 
         # Turn the tensors into a single list for easier computation
-        predictions = predictions.view(-1).tolist()
-        gold_labels = gold_labels.view(-1).tolist()
-        mask = mask.view(-1).tolist()
+        predictions = predictions.view(-1).numpy()
+        gold_labels = gold_labels.view(-1).numpy()
+        mask = mask.view(-1).numpy().astype(int)
         assert len(predictions) == len(gold_labels) == len(mask)
 
-        # TODO: Update self.correct_count and self.total_count with counts
+        #Mask data
+        relevant_preds = predictions[mask==1]
+        relevant_labels = gold_labels[mask==1]
+
+        #Get total samples and correct samples
+        total_samples_non_mask = mask.sum()
+        correct_samples = (relevant_preds == relevant_labels)
+
+
+        #Add total and correct samples
+        for l in self.correct_count.keys():
+            l_correct = ((relevant_preds == relevant_labels) & (relevant_labels == l)).sum()
+            l_total = (relevant_labels == l).sum()
+
+            self.correct_count[l] += l_correct
+            self.total_count[l] += l_total
+
+        # Update self.correct_count and self.total_count with counts
         # You should add to the values already stored there.
         # See the `Accuracy.__call__()` to see an example of this.
 
