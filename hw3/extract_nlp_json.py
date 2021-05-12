@@ -49,21 +49,37 @@ class JsonMetExtractor(object):
         for f in files:
             with open(f, 'rb') as file:
                 data = file.read()
-                print(data)
-                jsn.append(json.loads(data))
+                jsn.append(flatten_json(json.loads(data)))
         self.df = pd.DataFrame(jsn).sort_values('epoch_num')
         # print(self.df.sort_values('epoch_num'))
 
+def flatten_json(y):
+    out = {}
 
+    def flatten(x, name=''):
+        if type(x) is dict:
+            for a in x:
+                flatten(x[a], name + a + '_')
+        elif type(x) is list:
+            i = 0
+            for a in x:
+                flatten(a, name + str(i) + '_')
+                i += 1
+        else:
+            out[name[:-1]] = x
+
+    flatten(y)
+    return out
 
 
 #################################################################################
 #   Main Method
 #################################################################################
 
-ext = JsonMetExtractor("./model/simple_tagger_pos")
+ext = JsonMetExtractor("./model/neural_crf_ner")
 ext.read()
-ext.df.to_csv('test.csv')
+print(ext.df.head())
+# ext.df.to_csv('test.csv')
 plt.plot(ext.df['epoch_num'], ext.df.validation_accuracy, label = "Validation")
 plt.plot(ext.df['epoch_num'], ext.df.train_accuracy, label  = "Accuracy")
 plt.legend()
