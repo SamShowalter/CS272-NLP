@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "train_accuracy": 0.3714012825760677,
     "train_accuracy_per_label": {
         ".": 0.7386363636363636,
@@ -35,24 +34,4 @@
     },
     "validation_loss": 2.0494208335876465,
     "epoch_num": 6
-=======
-  "best_epoch": 6,
-  "peak_worker_0_memory_MB": 445.80078125,
-  "peak_gpu_0_memory_MB": 0,
-  "training_duration": "0:00:13.374219",
-  "training_start_epoch": 0,
-  "training_epochs": 6,
-  "epoch": 6,
-  "training_accuracy": 0.7978593686492346,
-  "training_accuracy3": 0.9093618750846769,
-  "training_loss": 1.9297410746415455,
-  "training_worker_0_memory_MB": 445.80078125,
-  "training_gpu_0_memory_MB": 0.0,
-  "validation_accuracy": 0.7109744560075686,
-  "validation_accuracy3": 0.8566698202459792,
-  "validation_loss": 1.908952921628952,
-  "best_validation_accuracy": 0.7109744560075686,
-  "best_validation_accuracy3": 0.8566698202459792,
-  "best_validation_loss": 1.908952921628952
->>>>>>> d836ce1692fa664e81db2dece590eb0f684bcec4
 }

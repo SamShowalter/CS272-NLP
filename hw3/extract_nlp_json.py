@@ -27,7 +27,7 @@ class JsonMetExtractor(object):
 
     def __init__(self,
                  path,
-                 mets = ['epoch',
+                 mets = ['epoch_num',
                          'training_accuracy',
                          'validation_accuracy',
                          'training_loss',
@@ -49,9 +49,10 @@ class JsonMetExtractor(object):
         for f in files:
             with open(f, 'rb') as file:
                 data = file.read()
+                print(data)
                 jsn.append(json.loads(data))
-        self.df = pd.DataFrame(jsn)
-        print(self.df.sort_values('epoch'))
+        self.df = pd.DataFrame(jsn).sort_values('epoch_num')
+        # print(self.df.sort_values('epoch_num'))
 
 
 
@@ -60,10 +61,11 @@ class JsonMetExtractor(object):
 #   Main Method
 #################################################################################
 
-# ext = JsonMetExtractor("./model/simple_tagger_pos")
-# ext.read()
-
-# plt.plot(ext.df['epoch'], ext.df.validation_accuracy)
-# plt.plot(ext.df['epoch'], ext.df.training_accuracy)
-# plt.show()
+ext = JsonMetExtractor("./model/simple_tagger_pos")
+ext.read()
+ext.df.to_csv('test.csv')
+plt.plot(ext.df['epoch_num'], ext.df.validation_accuracy, label = "Validation")
+plt.plot(ext.df['epoch_num'], ext.df.train_accuracy, label  = "Accuracy")
+plt.legend()
+plt.show()
 
