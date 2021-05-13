@@ -16,7 +16,7 @@ import pandas as pd
 import numpy as np
 import json
 import matplotlib.pyplot as plt
-
+import os
 #################################################################################
 #   Function-Class Declaration
 ################################################################################
@@ -76,44 +76,103 @@ def flatten_json(y):
 #   Main Method
 #################################################################################
 
-# file_names = ["./model/simple_tagger_pos","./model/better_s_tagger_pos","./model/s2_tagger_pos","./model/s3_tagger_pos"]
+prefix = 'model/'
+
+s_pos_p = '_s_tagger_pos'
+s_ner_p = '_s_tagger_ner'
+n_pos_p = '_neural_crf_pos'
+n_ner_p = '_neural_crf_ner'
+
+dirs = os.listdir(prefix)
+
+##Toggle these for plots
+#keyword = n_ner_p
+#file_names = [prefix + d for d in dirs if keyword in d]
+
+#files = []
+#for f in file_names:
+#    j = JsonMetExtractor(f)
+#    j.read()
+#    files.append(j)
+#for f,n in zip(files,file_names):
+#    label =n.split("/")[-1].replace(keyword,"")
+#    if label == "":
+#        label = 'baseline'
+#    print(label)
+#    plt.plot(f.df['epoch_num'], f.df.validation_accuracy, label =label)
+#plt.legend()
+#plt.title("Validation Accuracy of Neural Tagger for NER", fontsize = 15)
+#plt.ylabel("Validation Accuracy", fontsize = 12)
+#plt.xlabel("Epoch Number", fontsize = 12)
+#plt.show()
+#sys.exit(1)
+
+#######################################################################
+# Cross best plots
+
+# cross_dirs = [prefix + d for d in dirs if d.endswith('ner') and
+#               (d.startswith("_") or 'gru' in d)]
+# labels = ['gru_neural','gru_simple','baseline_simple','baseline_neural']
+# print(cross_dirs)
+
 # files = []
-# for f in file_names:
+# for f in cross_dirs:
 #     j = JsonMetExtractor(f)
 #     j.read()
 #     files.append(j)
-# for f,n in zip(files,file_names):
-#     plt.plot(f.df['epoch_num'], f.df.validation_accuracy, label = n.split("/")[-1])
+
+# for i,(f,n) in enumerate(zip(files,cross_dirs)):
+#     plt.plot(f.df['epoch_num'], f.df.validation_accuracy, label =labels[i])
 # plt.legend()
+# plt.title("Validation Accuracy for NER performance", fontsize = 15)
+# plt.ylabel("Validation Accuracy", fontsize = 12)
+# plt.xlabel("Epoch Number", fontsize = 12)
 # plt.show()
+# sys.exit(1)
 
-# file_names = ["./model/simple_tagger_ner","./model/better_s_tagger_ner","./model/enc_only_s_tagger_ner","./model/emb_only_s_tagger_ner"]
-# files = []
-# for f in file_names:
-#     j = JsonMetExtractor(f)
-#     j.read()
-#     files.append(j)
-# for f,n in zip(files,file_names):
-#     plt.plot(f.df['epoch_num'], f.df.validation_accuracy, label = n.split("/")[-1])
-# plt.legend()
-# plt.show()
+#######################################################################
+# Cross best from baseline to best (GRU)
+baselines = ['_s_tagger_ner','_s_tagger_pos','_neural_crf_ner','_neural_crf_pos']
+best = ['gru_s_tagger_ner','gru_s_tagger_pos','gru_neural_crf_ner','gru_neural_crf_pos']
+titles =['simple_NER','simple_POS','neural_NER','neural_POS']
 
-
-
-file_names = ["./model/neural_crf_ner",
-              "./model/better_neural_crf_ner",
-              "./model/enc_only_neural_crf_ner",
-              "./model/emb_only_neural_crf_ner"]
-files = []
-for f in file_names:
-    j = JsonMetExtractor(f)
+bases = []
+for b in baselines:
+    j = JsonMetExtractor(prefix + b)
     j.read()
-    files.append(j)
+    bases.append(j.df)
 
-for f,n in zip(files,file_names):
-    plt.plot(f.df['epoch_num'], f.df.validation_accuracy, label = n.split("/")[-1])
+bests = []
+for b in best:
+    j = JsonMetExtractor(prefix + b)
+    j.read()
+    bests.append(j.df)
 
-plt.legend()
-plt.show()
+for ba,be,title in zip(bases,bests,titles):
+    col_pref ='validation_accuracy_per_label_'
+    cols =[i for i in be.columns if i.startswith('validation_accuracy_per_label_')]
+    ba = ba[['epoch_num'] + cols]
+    be = be[['epoch_num'] + cols]
+    diffs = sorted([(c.replace('validation_accuracy_per_label_',''), abs(ba[c].iloc[-1] - be[c].iloc[-1]))
+                    for c in cols], reverse = True,key=lambda tup:tup[1])
+    cols_to_plot = [tup[0] for tup in diffs[:8]]
+    print(cols_to_plot)
 
-sys.exit(1)
+    for c in cols_to_plot:
+        plt.plot(ba['epoch_num'],be[col_pref + c] - ba[col_pref + c],label = c)
+    plt.legend()
+    plt.title("Performance Difference, Baseline v. Best for {}".format(title), fontsize = 15)
+    plt.ylabel("Validation Accuracy Difference", fontsize = 12)
+    plt.xlabel("Epoch Number", fontsize = 12)
+    plt.show()
+
+#######################################################################
+# TODO: NOW we just need it for test data
+
+
+
+
+
+
+
+
