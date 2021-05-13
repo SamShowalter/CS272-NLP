@@ -76,12 +76,44 @@ def flatten_json(y):
 #   Main Method
 #################################################################################
 
-ext = JsonMetExtractor("./model/neural_crf_ner")
-ext.read()
-print(ext.df.head())
-# ext.df.to_csv('test.csv')
-plt.plot(ext.df['epoch_num'], ext.df.validation_accuracy, label = "Validation")
-plt.plot(ext.df['epoch_num'], ext.df.train_accuracy, label  = "Accuracy")
+# file_names = ["./model/simple_tagger_pos","./model/better_s_tagger_pos","./model/s2_tagger_pos","./model/s3_tagger_pos"]
+# files = []
+# for f in file_names:
+#     j = JsonMetExtractor(f)
+#     j.read()
+#     files.append(j)
+# for f,n in zip(files,file_names):
+#     plt.plot(f.df['epoch_num'], f.df.validation_accuracy, label = n.split("/")[-1])
+# plt.legend()
+# plt.show()
+
+# file_names = ["./model/simple_tagger_ner","./model/better_s_tagger_ner","./model/enc_only_s_tagger_ner","./model/emb_only_s_tagger_ner"]
+# files = []
+# for f in file_names:
+#     j = JsonMetExtractor(f)
+#     j.read()
+#     files.append(j)
+# for f,n in zip(files,file_names):
+#     plt.plot(f.df['epoch_num'], f.df.validation_accuracy, label = n.split("/")[-1])
+# plt.legend()
+# plt.show()
+
+
+
+file_names = ["./model/neural_crf_ner",
+              "./model/better_neural_crf_ner",
+              "./model/enc_only_neural_crf_ner",
+              "./model/emb_only_neural_crf_ner"]
+files = []
+for f in file_names:
+    j = JsonMetExtractor(f)
+    j.read()
+    files.append(j)
+
+for f,n in zip(files,file_names):
+    plt.plot(f.df['epoch_num'], f.df.validation_accuracy, label = n.split("/")[-1])
+
 plt.legend()
 plt.show()
 
+sys.exit(1)
