@@ -14,7 +14,7 @@
       "embedding_dim": 50
     },
     "encoder": {
-      "type": null
+"type": null
     },
     "tag_projection": {
       "type": "torch.nn.Linear",
