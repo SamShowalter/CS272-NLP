@@ -1,0 +1,35 @@
+\begin{thebibliography}{5}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Chung et~al.(2014)Chung, Gulcehre, Cho, and
+  Bengio}]{chung2014empirical}
+Junyoung Chung, Caglar Gulcehre, KyungHyun Cho, and Yoshua Bengio. 2014.
+\newblock Empirical evaluation of gated recurrent neural networks on sequence
+  modeling.
+\newblock \emph{arXiv preprint arXiv:1412.3555}.
+
+\bibitem[{Hochreiter(1998)}]{hochreiter1998vanishing}
+Sepp Hochreiter. 1998.
+\newblock The vanishing gradient problem during learning recurrent neural nets
+  and problem solutions.
+\newblock \emph{International Journal of Uncertainty, Fuzziness and
+  Knowledge-Based Systems}, 6(02):107--116.
+
+\bibitem[{Huang et~al.(2015)Huang, Xu, and Yu}]{huang2015bidirectional}
+Zhiheng Huang, Wei Xu, and Kai Yu. 2015.
+\newblock Bidirectional lstm-crf models for sequence tagging.
+\newblock \emph{arXiv preprint arXiv:1508.01991}.
+
+\bibitem[{Ma and Hovy(2016)}]{ma2016end}
+Xuezhe Ma and Eduard Hovy. 2016.
+\newblock End-to-end sequence labeling via bi-directional lstm-cnns-crf.
+\newblock \emph{arXiv preprint arXiv:1603.01354}.
+
+\bibitem[{Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones,
+  Gomez, Kaiser, and Polosukhin}]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017.
+\newblock Attention is all you need.
+\newblock \emph{arXiv preprint arXiv:1706.03762}.
+
+\end{thebibliography}
