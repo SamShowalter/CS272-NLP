@@ -27,6 +27,7 @@ def run_viterbi(emission_scores, trans_scores, start_scores, end_scores):
     # Init the dp matrices
     # - R - dp sequence codes
     # - bp - dp scores backward pointers
+    if (N==0): return (0,np.array([0]))
     bp = np.zeros((N, L))
     R = -np.inf*np.ones((N, L))
 

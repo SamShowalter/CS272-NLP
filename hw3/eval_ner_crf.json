@@ -1,0 +1,91 @@
+{
+"GRU crf ner":
+{
+    "accuracy": 0.9057476469256396,
+    "accuracy_per_label": {
+        "B-company": 0.29307568438003223,
+        "B-facility": 0.14624505928853754,
+        "B-geo-loc": 0.46485260770975056,
+        "B-movie": 0.0,
+        "B-musicartist": 0.0,
+        "B-other": 0.015410958904109588,
+        "B-person": 0.5467775467775468,
+        "B-product": 0.09349593495934959,
+        "B-sportsteam": 0.006802721088435374,
+        "B-tvshow": 0.0,
+        "I-company": 0.0,
+        "I-facility": 0.1557377049180328,
+        "I-geo-loc": 0.0045662100456621,
+        "I-movie": 0.0,
+        "I-musicartist": 0.0,
+        "I-other": 0.1564748201438849,
+        "I-person": 0.40468227424749165,
+        "I-product": 0.004,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.980835301696371,
+        "<pad>": 0
+    },
+    "loss": 7.056096076965332
+}
+,
+"LSTM2D crf ner":
+{
+    "accuracy": 0.8976776530711259,
+    "accuracy_per_label": {
+        "B-company": 0.25925925925925924,
+        "B-facility": 0.0,
+        "B-geo-loc": 0.3945578231292517,
+        "B-movie": 0.0,
+        "B-musicartist": 0.010471204188481676,
+        "B-other": 0.025684931506849314,
+        "B-person": 0.5301455301455301,
+        "B-product": 0.012195121951219513,
+        "B-sportsteam": 0.006802721088435374,
+        "B-tvshow": 0.0,
+        "I-company": 0.0,
+        "I-facility": 0.00819672131147541,
+        "I-geo-loc": 0.0,
+        "I-movie": 0.0,
+        "I-musicartist": 0.0,
+        "I-other": 0.10251798561151079,
+        "I-person": 0.36454849498327757,
+        "I-product": 0.0,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.976182807243576,
+        "<pad>": 0
+    },
+    "loss": 7.336308002471924
+}
+,
+"BASELINE crf ner":
+{
+    "accuracy": 0.9031762460782095,
+    "accuracy_per_label": {
+        "B-company": 0.07407407407407407,
+        "B-facility": 0.0,
+        "B-geo-loc": 0.07369614512471655,
+        "B-movie": 0.0,
+        "B-musicartist": 0.0,
+        "B-other": 0.017123287671232876,
+        "B-person": 0.08316008316008316,
+        "B-product": 0.008130081300813009,
+        "B-sportsteam": 0.0,
+        "B-tvshow": 0.0,
+        "I-company": 0.0,
+        "I-facility": 0.00819672131147541,
+        "I-geo-loc": 0.0,
+        "I-movie": 0.0,
+        "I-musicartist": 0.0,
+        "I-other": 0.007194244604316547,
+        "I-person": 0.010033444816053512,
+        "I-product": 0.0,
+        "I-sportsteam": 0.0,
+        "I-tvshow": 0.0,
+        "O": 0.9962422160188963,
+        "<pad>": 0
+    },
+    "loss": 8.076108932495117
+}
+}
